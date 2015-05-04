@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse", "Warehouse\Warehouse.csproj", "{72EBFDE7-DBE7-4578-B7FC-AF9829F72619}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store", "Store\Store.csproj", "{A64C95F9-FF8B-490B-B420-AB089DA00B62}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E64BBBB5-5D95-454B-A87D-DA71294AE4A9} = {E64BBBB5-5D95-454B-A87D-DA71294AE4A9}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

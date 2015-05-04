@@ -4,11 +4,19 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace EnterpriseDistributedApplication
 {
-    class Book
+    public class Book
     {
+        public BsonObjectId _id;
+        public static int SerialId { get; set; }
+        public int ID { get; set; }
+        public string Title { get; set; }
+        public double Price { get; set; }
+        public string Editor { get; set; }
+
         public Book(string title, double price, string editor)
         {
             Title = title;
@@ -17,12 +25,6 @@ namespace EnterpriseDistributedApplication
             SerialId++;
             ID = SerialId;
         }
-
-        private static int SerialId { get; set; }
-        private int ID { get; set; } 
-        private string Title { get; set; }
-        private double Price { get; set; }
-        private string Editor { get; set; }
 
     }
 }

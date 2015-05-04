@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace EnterpriseDistributedApplication
 {
-    class Customer
+    public class Customer
     {
-        private string Email { get; set; }
-        private string Name { get; set; }
-        private string Address { get; set; }
+        public BsonObjectId _id;
+        public string Email { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
 
         public Customer(string email, string name, string address)
         {

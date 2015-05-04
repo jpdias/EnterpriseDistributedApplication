@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace EnterpriseDistributedApplication
 {
-    class Order
+    public class Order
     {
-        private Book Book { get; set; }
-        private int Quantity { get; set; }
-        private Customer Customer { get; set; }
-        private State State { get; set; }
+        public BsonObjectId _id;
+        public Book Book { get; set; }
+        public int Quantity { get; set; }
+        public Customer Customer { get; set; }
+        public State State { get; set; }
         public Order(Book book, int quantity, Customer customer, State state)
         {
             Book = book;
@@ -21,14 +23,15 @@ namespace EnterpriseDistributedApplication
         }
     }
 
-    class State
+    public class State
     {
         public State(state currrentState, DateTime dateTime)
         {
             this.CurrrentState = currrentState;
             this.dateTime = dateTime;
         }
-        internal enum state
+
+        public enum state
         {
             Waiting, Dispatched, WaitingDispatch
         }
