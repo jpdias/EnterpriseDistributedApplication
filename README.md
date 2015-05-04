@@ -2,8 +2,12 @@
 Distribution and Integration Technologies (TDIN) @ Faculdade de Engenharia da Universidade do Porto
 
 
-##Scenario
+## Credentials for MongoLab
 
+EDA_Warehouse: mongodb://warehouse:admin@ds034348.mongolab.com:34348/eda_warehouse
+EDA_Store:  mongodb://store:admin@ds034348.mongolab.com:34348/eda_store
+
+##Scenario
 
 A book editor prints and sells book titles (assume only a few titles) and intends to develop a system for coordinating its sells, orders and stock management. The editor owns two facilities physically different, the store with a public and exposition area, and a warehouse for storing larger quantities of books. The editor intends also to make available a web application for remote ordering.
 In the store there is a server, hosting the web application, and a persistent record of available titles, price and existences in the store and warehouse. This store server should be a web server (always on) and is connected to the internet. Between the store and warehouse there is also a network connection, but the warehouse computers usually run only in labor hours, including its server.
