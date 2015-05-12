@@ -19,7 +19,7 @@ namespace Store
     // NOTE: In order to launch WCF Test Client for testing this service, please select StoreService.svc or StoreService.svc.cs at the Solution Explorer and start debugging.
     public class StoreService : IStoreService
     {
-        public List<Book> GetBooks(string id)
+        public List<Book> GetBooks()
         {
 
             MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");

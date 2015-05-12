@@ -20,7 +20,7 @@ namespace Store
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "api/books")]
-        List<Book> GetBooks(string id);
+        List<Book> GetBooks();
 
         [OperationContract]
         [WebInvoke(Method = "POST",
