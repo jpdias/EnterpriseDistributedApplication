@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using EnterpriseDistributedApplication;
 
 namespace Store
 {
@@ -17,7 +19,15 @@ namespace Store
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare,
-            UriTemplate = "api/{id}")]
-        string JSONData(string id);
+            UriTemplate = "api/books")]
+        List<Book> GetBooks(string id);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "api/book")]
+        HttpStatusCode AddBook(Book book);
     }
 }
