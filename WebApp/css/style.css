@@ -1,0 +1,43 @@
+.navbar-inverse { background-color: #3686FF}
+
+.center-middle{
+    width: 80%; 
+    margin: auto;
+}
+
+.text-center{
+    text-align: center;
+}
+
+
+.margin-bottom{
+    margin-bottom: 50px;
+}
+
+th{
+    text-align: center;
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+.glyphicon-repeat-animate {
+    -animation: spin .7s infinite linear;
+	-webkit-animation: spin2 .7s infinite linear;
+	font-size: 5em;
+}
+
+@-webkit-keyframes spin2 {
+	from { -webkit-transform: rotate(0deg);}
+	to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+	from { transform: scale(1) rotate(0deg);}
+	to { transform: scale(1) rotate(360deg);}
+}
+
+#historico_table > tbody > tr:hover{
+	background-color: rgba(0,102,204, 0.5);
+	cursor: pointer;
+}
