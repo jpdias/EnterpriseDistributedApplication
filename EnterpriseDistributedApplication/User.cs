@@ -9,7 +9,7 @@ using MongoDB.Bson;
 namespace EnterpriseDistributedApplication
 {
     [DataContract]
-    class User
+    public class User
     {
         public BsonObjectId _id;
         [DataMember]

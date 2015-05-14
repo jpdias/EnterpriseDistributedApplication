@@ -43,8 +43,7 @@ namespace Store
             var task = collection.InsertOneAsync(book);
 
             task.Wait();
-            var results = task;
-
+         
             return (HttpStatusCode) task.Status;
         }
 
