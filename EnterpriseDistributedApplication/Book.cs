@@ -13,10 +13,8 @@ namespace EnterpriseDistributedApplication
     [DataContract]
     public class Book
     {
-       
-        public BsonObjectId _id;
         [DataMember]
-        public static int SerialId { get; set; }
+        public BsonObjectId _id;
         [DataMember]
         public int ID { get; set; }
         [DataMember]
@@ -34,8 +32,6 @@ namespace EnterpriseDistributedApplication
             Price = price;
             Editor = editor;
             Stock = stock;
-            SerialId++;
-            ID = SerialId;
         }
 
     }

@@ -12,6 +12,7 @@ using EnterpriseDistributedApplication;
 using MongoDB;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Store.WarehouseService;
 
 namespace Store
 {
@@ -21,7 +22,7 @@ namespace Store
     {
         public List<Book> GetBooks()
         {
-
+            WarehouseServiceClient warehouseService = new WarehouseServiceClient();
             MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
             var collection = dbConnection.dbClient.GetCollection<Book>("books");
 
@@ -29,7 +30,7 @@ namespace Store
 
             task.Wait();
             var results = task.Result;
-
+            warehouseService.ReportToWarehouse("Listed Books");
             return results;
 
         }
