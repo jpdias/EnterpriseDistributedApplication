@@ -29,7 +29,10 @@ namespace Store
 
             if (results != null && results.Stock > 0)
             {
-
+                var filter = Builders<Book>.Filter.Eq(b => b.Title, order.Book.Title);
+                var update = Builders<Book>.Update.Inc(b => b.Stock, -1);
+                var updateTask = collection.UpdateOneAsync(filter, update);
+                updateTask.Wait();
             }
             else
             {
