@@ -16,10 +16,10 @@ namespace Store.WarehouseService {
     public interface IWarehouseService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWarehouseService/ReportToWarehouse")]
-        void ReportToWarehouse(string message);
+        void ReportToWarehouse(EnterpriseDistributedApplication.Book book);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWarehouseService/ReportToWarehouse")]
-        System.Threading.Tasks.Task ReportToWarehouseAsync(string message);
+        System.Threading.Tasks.Task ReportToWarehouseAsync(EnterpriseDistributedApplication.Book book);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,12 +49,12 @@ namespace Store.WarehouseService {
                 base(binding, remoteAddress) {
         }
         
-        public void ReportToWarehouse(string message) {
-            base.Channel.ReportToWarehouse(message);
+        public void ReportToWarehouse(EnterpriseDistributedApplication.Book book) {
+            base.Channel.ReportToWarehouse(book);
         }
         
-        public System.Threading.Tasks.Task ReportToWarehouseAsync(string message) {
-            return base.Channel.ReportToWarehouseAsync(message);
+        public System.Threading.Tasks.Task ReportToWarehouseAsync(EnterpriseDistributedApplication.Book book) {
+            return base.Channel.ReportToWarehouseAsync(book);
         }
     }
 }

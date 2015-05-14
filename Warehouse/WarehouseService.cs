@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using EnterpriseDistributedApplication;
 
 namespace Warehouse
 {
@@ -12,9 +13,9 @@ namespace Warehouse
     public class WarehouseService : IWarehouseService
     {
         [OperationBehavior(TransactionScopeRequired = true)]
-        public void ReportToWarehouse(string message)
+        public void ReportToWarehouse(Book book)
         {
-            Debug.WriteLine(message);
+            Debug.WriteLine(book.Title);
         }
     }
 }

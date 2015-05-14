@@ -91,6 +91,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EnterpriseDistributedApplication\EnterpriseDistributedApplication.csproj">
+      <Project>{e64bbbb5-5d95-454b-a87d-da71294ae4a9}</Project>
+      <Name>EnterpriseDistributedApplication</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

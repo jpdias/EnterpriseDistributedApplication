@@ -22,7 +22,7 @@ namespace Store
     {
         public List<Book> GetBooks()
         {
-            WarehouseServiceClient warehouseService = new WarehouseServiceClient();
+         
             MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
             var collection = dbConnection.dbClient.GetCollection<Book>("books");
 
@@ -30,7 +30,7 @@ namespace Store
 
             task.Wait();
             var results = task.Result;
-            warehouseService.ReportToWarehouse("Listed Books");
+           
             return results;
 
         }
@@ -47,6 +47,13 @@ namespace Store
             return (HttpStatusCode) task.Status;
         }
 
+        public Order NewOrder(Order order)
+        {
+            OrdersOps operation = new OrdersOps();
 
+            Order result = operation.ProcessNewOrder(order);
+
+            return result;
+        }
     }
 }

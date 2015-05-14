@@ -29,5 +29,13 @@ namespace Store
             BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "api/book")]
         HttpStatusCode AddBook(Book book);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "api/order")]
+        Order NewOrder(Order order);
     }
 }
