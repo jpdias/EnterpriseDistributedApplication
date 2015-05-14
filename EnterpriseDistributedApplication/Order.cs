@@ -32,7 +32,7 @@ namespace EnterpriseDistributedApplication
     [DataContract]
     public class State
     {
-        public State(state currrentState, DateTime dateTime)
+        public State(state currrentState, DateTime? dateTime)
         {
             this.CurrrentState = currrentState;
             this.dateTime = dateTime;
@@ -44,8 +44,8 @@ namespace EnterpriseDistributedApplication
         }
 
         [DataMember]
-        public state CurrrentState { get; private set; }
+        public state CurrrentState { get; set; }
         [DataMember]
-        public DateTime dateTime { get; private set; }
+        public DateTime? dateTime { get; set; }
     }
 }

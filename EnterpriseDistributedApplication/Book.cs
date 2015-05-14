@@ -16,8 +16,6 @@ namespace EnterpriseDistributedApplication
         [DataMember]
         public BsonObjectId _id;
         [DataMember]
-        public int ID { get; set; }
-        [DataMember]
         public string Title { get; set; }
         [DataMember]
         public double Price { get; set; }
@@ -32,6 +30,13 @@ namespace EnterpriseDistributedApplication
             Price = price;
             Editor = editor;
             Stock = stock;
+        }
+
+        public Book(string title, double price, string editor)
+        {
+            Title = title;
+            Price = price;
+            Editor = editor;
         }
 
     }

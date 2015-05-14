@@ -20,9 +20,10 @@ namespace Store
 
         public Order ProcessNewOrder(Order order)
         {
-            var collection = dbConnection.dbClient.GetCollection<Book>("books");
+            var collectionBook = dbConnection.dbClient.GetCollection<Book>("books");
+            var collectionOrders = dbConnection.dbClient.GetCollection<Order>("orders");
 
-            var task = collection.Find(b => b.Title == order.Book.Title && b.Editor == order.Book.Editor).FirstOrDefaultAsync();
+            var task = collectionBook.Find(b => b.Title == order.Book.Title && b.Editor == order.Book.Editor).FirstOrDefaultAsync();
 
             task.Wait();
             var results = task.Result;
@@ -31,12 +32,35 @@ namespace Store
             {
                 var filter = Builders<Book>.Filter.Eq(b => b.Title, order.Book.Title);
                 var update = Builders<Book>.Update.Inc(b => b.Stock, -1);
-                var updateTask = collection.UpdateOneAsync(filter, update);
+                var updateTask = collectionBook.UpdateOneAsync(filter, update);
                 updateTask.Wait();
+                order.State.CurrrentState = State.state.Dispatched;
+                order.State.dateTime = new DateTime();
+
+                var insertOrder = collectionOrders.InsertOneAsync(order);
+                insertOrder.Wait();
+                var insertResult = insertOrder;
+                if (insertResult.IsCompleted)
+                {
+                    return order;
+                }
             }
             else
             {
+                order.State.CurrrentState = State.state.Waiting;
+                order.State.dateTime = null;
+
                 warehouseService.ReportToWarehouse(order.Book);
+
+                var insertOrder = collectionOrders.InsertOneAsync(order);
+                insertOrder.Wait();
+                var insertResult = insertOrder;
+
+                if (insertResult.IsCompleted)
+                {
+                    return order;
+                }
+                
             }
             return order;
         }

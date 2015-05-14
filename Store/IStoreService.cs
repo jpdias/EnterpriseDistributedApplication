@@ -36,6 +36,6 @@ namespace Store
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "api/order")]
-        Order NewOrder(Order order);
+        Order NewOrder(); //NewOrder(Order order);
     }
 }

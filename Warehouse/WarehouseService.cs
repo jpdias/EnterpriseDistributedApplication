@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Windows.Threading;
 using EnterpriseDistributedApplication;
 
 namespace Warehouse
@@ -16,6 +17,8 @@ namespace Warehouse
         public void ReportToWarehouse(Book book)
         {
             Debug.WriteLine(book.Title);
+            MainWindow.AddToList(book);
+
         }
     }
 }

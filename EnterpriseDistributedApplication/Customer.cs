@@ -11,6 +11,7 @@ namespace EnterpriseDistributedApplication
     [DataContract]
     public class Customer
     {
+        [DataMember]
         public BsonObjectId _id;
         [DataMember]
         public string Email { get; set; }
@@ -28,6 +29,11 @@ namespace EnterpriseDistributedApplication
             Name = name;
             Address = address;
             Password = password;
+        }
+
+        public Customer(string email)
+        {
+            Email = email;
         }
     }
 }

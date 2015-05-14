@@ -47,11 +47,14 @@ namespace Store
             return (HttpStatusCode) task.Status;
         }
 
-        public Order NewOrder(Order order)
+        public Order NewOrder()
         {
             OrdersOps operation = new OrdersOps();
-
-            Order result = operation.ProcessNewOrder(order);
+             
+            Book booktest = new Book("Harry Potter",20.0,"PortoEditora");
+            Customer customertest = new Customer("joao@mail.com");
+            Order test = new Order(booktest,9,customertest,new State(State.state.Waiting, null));
+            Order result = operation.ProcessNewOrder(test);
 
             return result;
         }

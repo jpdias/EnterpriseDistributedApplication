@@ -21,7 +21,6 @@ namespace Store
         {
             var collection = dbConnection.dbClient.GetCollection<User>("users");
 
-            Debug.WriteLine(user.Username + "  " + user.Password);
             var task = collection.Find(u => u.Username == user.Username).FirstOrDefaultAsync();
 
             task.Wait();
