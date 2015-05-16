@@ -11,7 +11,7 @@ namespace EnterpriseDistributedApplication
     [DataContract]
     public class User
     {
-        public BsonObjectId _id;
+        public ObjectId _id;
         [DataMember]
         public string Username { get; set; }
         [DataMember]

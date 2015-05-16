@@ -15,7 +15,7 @@ namespace EnterpriseDistributedApplication
     public class Book
     {
         [DataMember]
-        public BsonObjectId _id;
+        public ObjectId _id;
         [DataMember]
         public string Title { get; set; }
         [DataMember]
@@ -27,7 +27,7 @@ namespace EnterpriseDistributedApplication
 
         public Book(string title, double price, string editor, int stock)
         {
-            _id = new BsonObjectId(new ObjectId(DateTime.Now, Process.GetCurrentProcess().SessionId, (short)Process.GetCurrentProcess().Id, 1));
+            _id = new ObjectId(DateTime.Now, Process.GetCurrentProcess().SessionId, (short)Process.GetCurrentProcess().Id, 1);
             Title = title;
             Price = price;
             Editor = editor;

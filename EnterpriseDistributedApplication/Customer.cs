@@ -13,7 +13,7 @@ namespace EnterpriseDistributedApplication
     public class Customer
     {
         [DataMember]
-        public BsonObjectId _id;
+        public ObjectId _id;
         [DataMember]
         public string Email { get; set; }
         [DataMember]
@@ -26,7 +26,7 @@ namespace EnterpriseDistributedApplication
 
         public Customer(string email, string name, string address, string password)
         {
-            _id = new BsonObjectId(new ObjectId(DateTime.Now, Process.GetCurrentProcess().SessionId, (short)Process.GetCurrentProcess().Id, 1));
+            _id = new ObjectId(DateTime.Now, Process.GetCurrentProcess().SessionId, (short)Process.GetCurrentProcess().Id, 1); 
             Email = email;
             Name = name;
             Address = address;

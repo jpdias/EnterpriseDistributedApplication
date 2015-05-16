@@ -61,9 +61,8 @@ namespace Store
 
         public HttpStatusCode PackageEnter(Order order)
         {
-            
-            Debug.WriteLine("WCF: " +order.Book.Title);
-
+            Debug.WriteLine(order.Book.Title);
+            Email.SendEmail(order.Customer.Email, "Book","State:" + order.State.CurrrentState +"\n"+"Book: "+order.Book.Title);
             return HttpStatusCode.OK;
         }
     }

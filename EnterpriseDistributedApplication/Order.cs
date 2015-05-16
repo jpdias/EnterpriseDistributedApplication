@@ -12,7 +12,7 @@ namespace EnterpriseDistributedApplication
     [DataContract]
     public class Order
     {
-        public BsonObjectId _id;
+        public ObjectId _id;
         [DataMember]
         public Book Book { get; set; }
         [DataMember]
@@ -25,7 +25,7 @@ namespace EnterpriseDistributedApplication
         public Order(Book book, int quantity, Customer customer, State state)
         {
 
-            _id = new BsonObjectId(new ObjectId(DateTime.Now, Process.GetCurrentProcess().SessionId, (short)Process.GetCurrentProcess().Id, 1));
+            _id = new ObjectId(DateTime.Now, Process.GetCurrentProcess().SessionId, (short)Process.GetCurrentProcess().Id, 1); 
             Book = book;
             Quantity = quantity;
             Customer = customer;

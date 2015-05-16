@@ -16,9 +16,9 @@ namespace Warehouse
         [OperationBehavior(TransactionScopeRequired = true)]
         public void ReportToWarehouse(Order order)
         {
-         
             MainWindow.AddToList(order);
-
+            Record rec = new Record();
+            rec.ProcessPackage(order);
         }
     }
 }

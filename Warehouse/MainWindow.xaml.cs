@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
@@ -62,11 +63,16 @@ namespace Warehouse
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:46615/StoreService.svc/api/warehouse/package");
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "POST";
-
+               
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
-                    string json = new JavaScriptSerializer().Serialize(temp);
-                    streamWriter.Write(json);
+                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Order));
+                    MemoryStream ms = new MemoryStream();
+                    ser.WriteObject(ms, temp);
+                    string jsonString = Encoding.UTF8.GetString(ms.ToArray());
+                    ms.Close();
+                    streamWriter.Write(jsonString);
+                   
                 }
 
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();

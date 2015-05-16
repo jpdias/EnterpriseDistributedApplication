@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MongoDB.Driver, Version=2.0.0.828, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MongoDB.Driver.2.0.0\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
@@ -55,6 +59,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="IWarehouseService.cs" />
+    <Compile Include="Record.cs" />
     <Compile Include="WarehouseService.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -98,6 +103,10 @@
     <ProjectReference Include="..\EnterpriseDistributedApplication\EnterpriseDistributedApplication.csproj">
       <Project>{e64bbbb5-5d95-454b-a87d-da71294ae4a9}</Project>
       <Name>EnterpriseDistributedApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store\Store.csproj">
+      <Project>{A64C95F9-FF8B-490B-B420-AB089DA00B62}</Project>
+      <Name>Store</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
