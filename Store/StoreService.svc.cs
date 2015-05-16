@@ -53,10 +53,18 @@ namespace Store
              
             Book booktest = new Book("Harry Potter",20.0,"PortoEditora");
             Customer customertest = new Customer("joao@mail.com");
-            Order test = new Order(booktest,9,customertest,new State(State.state.Waiting, null));
+            Order test = new Order(booktest, 9,customertest,new State(State.state.Waiting, null));
             Order result = operation.ProcessNewOrder(test);
 
             return result;
+        }
+
+        public HttpStatusCode PackageEnter(Order order)
+        {
+            
+            Debug.WriteLine("WCF: " +order.Book.Title);
+
+            return HttpStatusCode.OK;
         }
     }
 }

@@ -24,15 +24,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IWarehouseService/ReportToWarehouse" message="tns:IWarehouseService_ReportToWarehouse_InputMessage" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="BasicHttpBinding_IWarehouseService" type="tns:IWarehouseService">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="ReportToWarehouse">
-      <soap:operation soapAction="http://tempuri.org/IWarehouseService/ReportToWarehouse" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-    </wsdl:operation>
-  </wsdl:binding>
   <wsdl:binding name="QueueEndpoint" type="tns:IWarehouseService">
     <wsp:PolicyReference URI="#QueueEndpoint_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/msmq" />
@@ -44,9 +35,6 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="WarehouseService">
-    <wsdl:port name="BasicHttpBinding_IWarehouseService" binding="tns:BasicHttpBinding_IWarehouseService">
-      <soap:address location="http://localhost:8733/Design_Time_Addresses/Warehouse/WarehouseService/" />
-    </wsdl:port>
     <wsdl:port name="QueueEndpoint" binding="tns:QueueEndpoint">
       <soap12:address location="net.msmq://localhost/private/Warehouse" />
       <wsa10:EndpointReference>

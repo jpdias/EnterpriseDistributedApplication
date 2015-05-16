@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,20 +21,20 @@ namespace Warehouse
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static ObservableCollection<Book> TheList = new ObservableCollection<Book>();
-        
+        public static ObservableCollection<Order> TheList = new ObservableCollection<Order>();
+        public static int Factor = 10;
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        public static void AddToList(Book book)
+        public static void AddToList(Order order)
         {
             Application.Current.Dispatcher.BeginInvoke(
                 System.Windows.Threading.DispatcherPriority.Normal,
                 (Action)delegate()
                 {
-                    TheList.Add(book);
+                    TheList.Add(order);
                     
                 });
            
@@ -39,7 +42,39 @@ namespace Warehouse
 
         private void CheckBoxZone_Checked(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("line selected");
+            Order temp = null;
+
+            CheckBox current = (CheckBox)e.OriginalSource;
+
+            if (current.Content != null)
+            {
+                foreach (var order in TheList.Where(order => order.Book.Title == current.Content))
+                {
+                    temp = order;
+                    temp.Book.Stock = order.Quantity*Factor;
+                    TheList.Remove(order);
+                    break;
+                }
+                
+            }
+            if (temp != null) {
+
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:46615/StoreService.svc/api/warehouse/package");
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Method = "POST";
+
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    string json = new JavaScriptSerializer().Serialize(temp);
+                    streamWriter.Write(json);
+                }
+
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                }
+            }
         }
     }
      

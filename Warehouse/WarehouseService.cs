@@ -14,10 +14,10 @@ namespace Warehouse
     public class WarehouseService : IWarehouseService
     {
         [OperationBehavior(TransactionScopeRequired = true)]
-        public void ReportToWarehouse(Book book)
+        public void ReportToWarehouse(Order order)
         {
-            Debug.WriteLine(book.Title);
-            MainWindow.AddToList(book);
+         
+            MainWindow.AddToList(order);
 
         }
     }

@@ -9,8 +9,8 @@
 
         <ListBox Name="listBoxZone" ItemsSource="{Binding Source={x:Static local:MainWindow.TheList}}" Background="Azure" Margin="10">
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="enterpriseDistributedApplication:Book">
-                    <CheckBox Name="CheckBoxZone" Content="{Binding Title}" Checked="CheckBoxZone_Checked"/>
+                <DataTemplate DataType="enterpriseDistributedApplication:Order">
+                    <CheckBox Name="CheckBoxZone" Content="{Binding Book.Title}" Checked="CheckBoxZone_Checked"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

@@ -50,7 +50,7 @@ namespace Store
                 order.State.CurrrentState = State.state.Waiting;
                 order.State.dateTime = null;
 
-                warehouseService.ReportToWarehouse(order.Book);
+                warehouseService.ReportToWarehouse(order);
 
                 var insertOrder = collectionOrders.InsertOneAsync(order);
                 insertOrder.Wait();

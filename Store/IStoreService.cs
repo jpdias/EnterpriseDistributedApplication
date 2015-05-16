@@ -37,5 +37,13 @@ namespace Store
             BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "api/order")]
         Order NewOrder(); //NewOrder(Order order);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "api/warehouse/package")]
+        HttpStatusCode PackageEnter(Order order); //NewOrder(Order order);
     }
 }
