@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -25,6 +26,7 @@ namespace EnterpriseDistributedApplication
 
         public Customer(string email, string name, string address, string password)
         {
+            _id = new BsonObjectId(new ObjectId(DateTime.Now, Process.GetCurrentProcess().SessionId, (short)Process.GetCurrentProcess().Id, 1));
             Email = email;
             Name = name;
             Address = address;

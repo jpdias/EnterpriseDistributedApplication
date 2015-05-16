@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -23,6 +24,8 @@ namespace EnterpriseDistributedApplication
 
         public Order(Book book, int quantity, Customer customer, State state)
         {
+
+            _id = new BsonObjectId(new ObjectId(DateTime.Now, Process.GetCurrentProcess().SessionId, (short)Process.GetCurrentProcess().Id, 1));
             Book = book;
             Quantity = quantity;
             Customer = customer;

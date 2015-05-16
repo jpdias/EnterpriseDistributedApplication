@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using EnterpriseDistributedApplication;
@@ -31,11 +32,11 @@ namespace Store
             if (results != null && results.Stock > 0)
             {
                 var filter = Builders<Book>.Filter.Eq(b => b.Title, order.Book.Title);
-                var update = Builders<Book>.Update.Inc(b => b.Stock, -1);
+                var update = Builders<Book>.Update.Inc(b => b.Stock, -order.Quantity);
                 var updateTask = collectionBook.UpdateOneAsync(filter, update);
                 updateTask.Wait();
                 order.State.CurrrentState = State.state.Dispatched;
-                order.State.dateTime = new DateTime();
+                order.State.dateTime = DateTime.Now;
 
                 var insertOrder = collectionOrders.InsertOneAsync(order);
                 insertOrder.Wait();
