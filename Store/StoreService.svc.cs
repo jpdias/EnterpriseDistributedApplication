@@ -45,6 +45,51 @@ namespace Store
             return (HttpStatusCode) task.Status;
         }
 
+        public List<Customer> GetCustomers()
+        {
+
+            MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
+            var collection = dbConnection.dbClient.GetCollection<Customer>("customers");
+
+            var task = collection.Find(customer => customer.Email != "").ToListAsync();
+
+            task.Wait();
+            var results = task.Result;
+
+            return results;
+
+        }
+
+        public Customer GetCustomer(string email)
+        {
+
+            MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
+            var collection = dbConnection.dbClient.GetCollection<Customer>("customers");
+
+            var task = collection.Find(customer => customer.Email == email).ToListAsync();
+
+            task.Wait();
+            var results = task.Result;
+
+            return results[0];
+
+        }
+
+        public List<Order> GetCustomerOrders(string email)
+        {
+
+            MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
+            var collection = dbConnection.dbClient.GetCollection<Order>("orders");
+
+            var task = collection.Find(order => order.Quantity != 0).ToListAsync();
+            
+            task.Wait();
+            var results = task.Result;
+            
+            return results;
+
+        }
+
         public Order NewOrder()
         {
             OrdersOps operation = new OrdersOps();
@@ -60,7 +105,7 @@ namespace Store
         public HttpStatusCode PackageEnter(Order order)
         {
             Debug.WriteLine(order.Book.Title);
-            Email.SendEmail(order.Customer.Email, "Book","State:" + order.State.CurrrentState +"\n"+"Book: "+order.Book.Title);
+            Email.SendEmail(order.Customer.Email, "Book","State:" + order.State.CurrentState +"\n"+"Book: "+order.Book.Title);
             return HttpStatusCode.OK;
         }
     }
