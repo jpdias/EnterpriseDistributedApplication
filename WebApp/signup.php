@@ -17,7 +17,7 @@
         <!-- <link href="signin.css" rel="stylesheet"> -->
 
         <script src="js/jquery-1.11.1.min.js"></script>
-        <script src="js/register.js"></script>
+        <script src="js/signup.js"></script>
     </head>
 
     <body>
@@ -37,10 +37,8 @@
                 </div>
 
                 <div class="form-group">
-
                     <label for="inputEmail" class="col-sm-2 control-label">E-Mail</label>
                     <div class="col-sm-10">
-
                         <input type="email" name="Email" id="inputEmail" class="form-control" placeholder="E-mail">
                     </div>
                 </div>
@@ -52,7 +50,7 @@
                     </div>
                 </div>
                 <div class=" col-sm-10 col-sm-offset-2" style="padding:0px">
-                    <button type="submit" id="newCostumerButton" class="btn btn-lg btn-default btn-block">Register</button>
+                    <button type="submit" id="newCostumerButton" class="btn btn-lg btn-default btn-block">Sign Up</button>
                 </div>
 
             </form>

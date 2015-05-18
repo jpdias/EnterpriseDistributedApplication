@@ -31,12 +31,20 @@ namespace Store
         HttpStatusCode AddBook(Book book);
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare,
-            UriTemplate = "api/customers")]
-        List<Customer> GetCustomers();
+            UriTemplate = "api/login")]
+        bool Login(Customer customer);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "api/register")]
+        bool Register(Customer customer);
 
         [OperationContract]
         [WebInvoke(Method = "GET",

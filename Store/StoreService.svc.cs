@@ -45,19 +45,18 @@ namespace Store
             return (HttpStatusCode) task.Status;
         }
 
-        public List<Customer> GetCustomers()
+        public bool Login(Customer customer)
         {
+            Authentication authentication = new Authentication();
 
-            MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
-            var collection = dbConnection.dbClient.GetCollection<Customer>("customers");
+            return authentication.AuthenticateCustomer(customer);
+        }
 
-            var task = collection.Find(customer => customer.Email != "").ToListAsync();
+        public bool Register(Customer customer)
+        {
+            Authentication authentication = new Authentication();
 
-            task.Wait();
-            var results = task.Result;
-
-            return results;
-
+            return authentication.CreateCustomer(customer);
         }
 
         public Customer GetCustomer(string email)

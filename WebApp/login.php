@@ -4,30 +4,32 @@ $error = '';
 
 if (isset($_POST['submit'])) {
     if (empty($_POST['inputEmail']) || empty($_POST['inputPassword'])) {
-        $error = "E-mail ou password inválida!";
+        $error = "Invalid e-mail or password!";
     } else {
         $email = $_POST['inputEmail'];
-        $password   = $_POST['inputPassword'];
+        $password  = $_POST['inputPassword'];
         $codCliente;
         
-        $data = json_decode(CallAPI("GET", "http://localhost:46615/StoreService.svc/api/customers"), true);
+		$data = array(
+			"Email" => $email,
+			"Password" => $password
+		);
 		
-        foreach ($data as $item) {
-            $emailFromAPI = $item["Email"];
-            $passwordFromAPI = $item["Password"];
-            $codClienteFromAPI = $item["Email"];
-			$nomeClienteFromAPI = $item["Name"];
-            if ($emailFromAPI == $email) {
-                if ($passwordFromAPI == $password) {
-                    $loginOk = true;
-                    $codCliente = $codClienteFromAPI;
-					$nomeCliente = $nomeClienteFromAPI;
-                }
-                else {
-                    echo '<script language="javascript">alert("Password errada!")</script>';
-                }
-            }
-        }
+        $login = json_decode(CallAPI("POST", "http://localhost:46615/StoreService.svc/api/login", json_encode($data)), true);
+		
+		if ($login == 1)
+		{
+			$loginOk = true;
+			
+			$customer = json_decode(CallAPI("GET", "http://localhost:46615/StoreService.svc/api/customer/joao@mail.com"), true);
+		
+			$codCliente = $email;
+			$nomeCliente = $customer["Name"];
+		}
+		else
+		{
+			echo '<script language="javascript">alert("Wrong password!")</script>';
+		}
         
         if (isset($loginOk)) {
             $_SESSION['codCliente'] = $codCliente;
@@ -47,6 +49,7 @@ function CallAPI($method, $url, $data = false)
             
             if ($data)
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
             break;
         case "PUT":
             curl_setopt($curl, CURLOPT_PUT, 1);

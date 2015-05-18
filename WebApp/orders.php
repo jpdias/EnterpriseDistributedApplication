@@ -20,23 +20,22 @@
 
     <script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/jquery.dataTables.min.js"></script>
-    <script src="js/catalog.js"></script>
+    <script src="js/orders.js"></script>
 </head>
 
 <body>
 
 <div class="container">
 
-    <h2 class="center-middle margin-bottom"> Catalog </h2>
+    <h2 class="center-middle margin-bottom"> My Orders </h2>
 
     <div class="table-responsive center-middle">
-        <table class="table text-center" id="catalog_table">
+        <table class="table text-center" id="orders_table">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Editor</th>
-					<th>Price</th>
-					<th>Stock</th>
+                    <th>Book Title</th>
+                    <th>Quantity</th>
+					<th>State</th>
                 </tr>
             </thead>
             <tbody>

@@ -26,7 +26,7 @@
         <div class="container">
 
             <div class="page-header">
-                <h1>Enterprise Distributed Application <small>Login</small></h1>
+                <h1>Enterprise Distributed Application <small>Sign In</small></h1>
             </div>
 
             <form class="form-signin form-horizontal" role="form" action="" method="post">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="col-sm-11 col-sm-offset-1" style="padding:0px">
-                    <button class="btn btn-lg btn-default btn-block " name="submit" type="submit">Login</button>
+                    <button class="btn btn-lg btn-default btn-block " name="submit" type="submit">Sign In</button>
                 </div>
 
             </form>

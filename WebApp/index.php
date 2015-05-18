@@ -30,7 +30,7 @@
             <img src="images/logo.png" class="img-responsive" alt="Logo"  style="margin: 0 auto; height:300px">
             <button type="submit" id="signin" class="btn btn-lg btn-default btn-block">Sign In</button>
             <br>
-            <button type="submit" id="register" class="btn btn-lg btn-default btn-block">Register</button>
+            <button type="submit" id="signup" class="btn btn-lg btn-default btn-block">Sign Up</button>
 
         </div>
     </body>

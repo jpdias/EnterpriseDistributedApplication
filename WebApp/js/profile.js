@@ -16,7 +16,7 @@ $(document).ready(function () {
 			$("#email").append(resp.Email);
         },
         error: function (e) {
-            alert("Erro ao recolher dados do cliente!");
+            alert("Error collecting user data!");
         }
     });
 });

@@ -3,8 +3,8 @@ $(document).ready(function () {
         window.location.href = "signin.php";
     })
 
-    $("#register").click(function () {
-        window.location.href = "register.php";
+    $("#signup").click(function () {
+        window.location.href = "signup.php";
     })
     
 

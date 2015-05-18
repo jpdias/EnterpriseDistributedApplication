@@ -41,8 +41,8 @@
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li style="text-align:center"><a href="profile.php?codCliente=<?php echo $_SESSION['codCliente'];?>">My Profile</a>
+					<li style="text-align:center"><a href="orders.php?codCliente=<?php echo $_SESSION['codCliente'];?>">My Orders</a>
                     <li style="text-align:center"><a href="catalog.php?codCliente=<?php echo $_SESSION['codCliente'];?>">Catalog</a>
-					<li style="text-align:center"><a href="history.php?codCliente=<?php echo $_SESSION['codCliente'];?>">History</a>
                     </li>
                 </ul>
 				<ul class="nav navbar-nav navbar-right">

@@ -32,26 +32,26 @@ namespace Store
             return false;
         }
 
-        public bool AuthenticateCustomer(Customer costumer)
+        public bool AuthenticateCustomer(Customer customer)
         {
             var collection = dbConnection.dbClient.GetCollection<Customer>("customers");
 
-            var task = collection.Find(u => u.Email == costumer.Email).FirstOrDefaultAsync();
+            var task = collection.Find(u => u.Email == customer.Email).FirstOrDefaultAsync();
 
             task.Wait();
             var results = task.Result;
-            if (results.Password == costumer.Password)
+            if (results.Password == customer.Password)
             {
                 return true;
             }
             return false;
         }
 
-        public bool CreateCustomer(Customer costumer)
+        public bool CreateCustomer(Customer customer)
         {
             var collection = dbConnection.dbClient.GetCollection<Customer>("customers");
 
-            var task = collection.InsertOneAsync(costumer);
+            var task = collection.InsertOneAsync(customer);
 
             task.Wait();
             var results = task;
