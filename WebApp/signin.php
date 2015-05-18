@@ -24,17 +24,14 @@
     <body>
 
         <div class="container">
-
             <div class="page-header">
                 <h1>Enterprise Distributed Application <small>Sign In</small></h1>
             </div>
-
             <form class="form-signin form-horizontal" role="form" action="" method="post">
                 <div class="form-group">
-
                     <label for="inputEmail" class="col-sm-1 control-label">Email</label>
                     <div class="col-sm-11">
-                        <input type="email" name="inputEmail" id="inputEmail" class="form-control col-sm-10" placeholder="Email" required autofocus>
+                        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
                     </div>
                 </div>
                 <div class="form-group">
@@ -44,9 +41,8 @@
                     </div>
                 </div>
                 <div class="col-sm-11 col-sm-offset-1" style="padding:0px">
-                    <button class="btn btn-lg btn-default btn-block " name="submit" type="submit">Sign In</button>
+                    <button class="btn btn-lg btn-default btn-block" name="submit" type="submit">Sign In</button>
                 </div>
-
             </form>
         </div>
     </body>
