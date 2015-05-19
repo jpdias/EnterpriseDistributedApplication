@@ -18,7 +18,7 @@
     <!-- Custom styles for this template -->
     <!-- <link href="signin.css" rel="stylesheet"> -->
 
-    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/profile.js"></script>
 </head>
 

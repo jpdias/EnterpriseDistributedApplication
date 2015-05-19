@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     } else {
         $email = $_POST['inputEmail'];
         $password  = $_POST['inputPassword'];
-        $codCliente;
+        $id;
         
 		$data = array(
 			"Email" => $email,
@@ -21,20 +21,20 @@ if (isset($_POST['submit'])) {
 		{
 			$loginOk = true;
 			
-			$customer = json_decode(CallAPI("GET", "http://localhost:46615/StoreService.svc/api/customer/joao@mail.com"), true);
+			$customer = json_decode(CallAPI("GET", "http://localhost:46615/StoreService.svc/api/customer/email/" . $email), true);
 		
-			$codCliente = $email;
-			$nomeCliente = $customer["Name"];
+			$id = $customer["_id"];
+			$name = $customer["Name"];
 		}
 		else
 		{
 			echo '<script language="javascript">alert("Wrong password!")</script>';
 		}
         
-        if (isset($loginOk)) {
-            $_SESSION['codCliente'] = $codCliente;
-			$_SESSION['nomeCliente'] = $nomeCliente;
-            header("location: profile.php?codCliente=$codCliente");
+		if (isset($loginOk)) {
+            $_SESSION['id'] = $id;
+			$_SESSION['name'] = $name;
+            header("location: profile.php?id=$id");
         }
     }
 }

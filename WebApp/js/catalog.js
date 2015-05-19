@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	
-	var codCliente = getParameterByName("codCliente");
+	var id = getParameterByName("id");
 	
 	$('#catalog_table').dataTable({
 		"searching": false
@@ -17,12 +17,12 @@ $(document).ready(function () {
 			
 			for (var key in resp) {
 			  if (resp.hasOwnProperty(key)) {
-				table.row.add([resp[key].Title, resp[key].Editor, resp[key].Price, resp[key].Stock]).draw();
+				table.row.add([resp[key].Title, resp[key].Editor, resp[key].Price, resp[key].Stock, "Order".link("order.php?customerId=" + id + "&bookId=" + resp[key]._id)]).draw();
 			  }
 			}
         },
         error: function (e) {
-            alert("Error collecting user data!");
+            alert("Error collecting data!");
         }
     });
 });

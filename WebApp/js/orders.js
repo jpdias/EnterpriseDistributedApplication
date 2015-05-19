@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	
-	var codCliente = getParameterByName("codCliente");
+	var id = getParameterByName("id");
 	
 	$('#orders_table').dataTable({
 		"searching": false
@@ -8,7 +8,7 @@ $(document).ready(function () {
 	
 	$.ajax({
         type: "GET",
-        url: "http://localhost:46615/StoreService.svc/api/orders/" + codCliente,
+        url: "http://localhost:46615/StoreService.svc/api/orders/" + id,
         dataType: "json",
 		cache: false,
         success: function (resp) {
@@ -22,7 +22,7 @@ $(document).ready(function () {
 			}
         },
         error: function (e) {
-            alert("Error collecting user data!");
+            alert("Error collecting costumer data!");
         }
     });
 });

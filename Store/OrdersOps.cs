@@ -35,7 +35,8 @@ namespace Store
                 var update = Builders<Book>.Update.Inc(b => b.Stock, -order.Quantity);
                 var updateTask = collectionBook.UpdateOneAsync(filter, update);
                 updateTask.Wait();
-                order.State = new State(State.state.Dispatched,DateTime.Now);
+
+                order.State = new State(State.state.Dispatched, DateTime.Now);
                 order.State.dateTime = DateTime.Now;
 
                 var insertOrder = collectionOrders.InsertOneAsync(order);
@@ -48,7 +49,7 @@ namespace Store
             }
             else
             {
-                order.State.CurrentState = State.state.Waiting;
+                order.State = new State(State.state.Waiting, DateTime.Now);
                 order.State.dateTime = DateTime.Now;
 
                 warehouseService.ReportToWarehouse(order);

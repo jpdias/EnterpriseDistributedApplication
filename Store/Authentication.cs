@@ -36,7 +36,7 @@ namespace Store
         {
             var collection = dbConnection.dbClient.GetCollection<Customer>("customers");
 
-            var task = collection.Find(u => u.Email == customer.Email).FirstOrDefaultAsync();
+            var task = collection.Find(c => c.Email == customer.Email).FirstOrDefaultAsync();
 
             task.Wait();
             var results = task.Result;

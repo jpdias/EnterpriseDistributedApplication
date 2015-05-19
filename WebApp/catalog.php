@@ -18,7 +18,7 @@
     <!-- Custom styles for this template -->
     <!-- <link href="signin.css" rel="stylesheet"> -->
 
-    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery.min.js"></script>
 	<script src="js/jquery.dataTables.min.js"></script>
     <script src="js/catalog.js"></script>
 </head>
@@ -34,9 +34,10 @@
             <thead>
                 <tr>
                     <th>Title</th>
-                    <th>Editor</th>
+                    <th class="sort">Editor</th>
 					<th>Price</th>
 					<th>Stock</th>
+					<th>Order</th>
                 </tr>
             </thead>
             <tbody>

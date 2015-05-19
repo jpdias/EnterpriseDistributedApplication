@@ -23,6 +23,14 @@ namespace Store
         List<Book> GetBooks();
 
         [OperationContract]
+        [WebInvoke(Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "api/book/{id}")]
+        Book GetBook(string id);
+
+        [OperationContract]
         [WebInvoke(Method = "POST",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
@@ -51,16 +59,24 @@ namespace Store
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare,
-            UriTemplate = "api/customer/{email}")]
-        Customer GetCustomer(string email);
+            UriTemplate = "api/customer/email/{email}")]
+        Customer GetCustomerByEmail(string email);
 
         [OperationContract]
         [WebInvoke(Method = "GET",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare,
-            UriTemplate = "api/orders/{email}")]
-        List<Order> GetCustomerOrders(string email);
+            UriTemplate = "api/customer/{id}")]
+        Customer GetCustomer(string id);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "api/orders/{id}")]
+        List<Order> GetCustomerOrders(string id);
 
         [OperationContract]
         [WebInvoke(Method = "POST",

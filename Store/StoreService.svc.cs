@@ -20,7 +20,6 @@ namespace Store
     {
         public List<Book> GetBooks()
         {
-         
             MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
             var collection = dbConnection.dbClient.GetCollection<Book>("books");
 
@@ -30,7 +29,19 @@ namespace Store
             var results = task.Result;
            
             return results;
+        }
+        
+        public Book GetBook(string id)
+        {
+            MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
+            var collection = dbConnection.dbClient.GetCollection<Book>("books");
 
+            var task = collection.Find(book => book._id == id).ToListAsync();
+
+            task.Wait();
+            var results = task.Result;
+
+            return results[0];
         }
 
         public HttpStatusCode AddBook(Book book)
@@ -59,9 +70,8 @@ namespace Store
             return authentication.CreateCustomer(customer);
         }
 
-        public Customer GetCustomer(string email)
+        public Customer GetCustomerByEmail(string email)
         {
-
             MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
             var collection = dbConnection.dbClient.GetCollection<Customer>("customers");
 
@@ -71,22 +81,32 @@ namespace Store
             var results = task.Result;
 
             return results[0];
-
         }
 
-        public List<Order> GetCustomerOrders(string email)
+        public Customer GetCustomer(string id)
         {
+            MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
+            var collection = dbConnection.dbClient.GetCollection<Customer>("customers");
 
+            var task = collection.Find(customer => customer._id == id).ToListAsync();
+
+            task.Wait();
+            var results = task.Result;
+
+            return results[0];
+        }
+
+        public List<Order> GetCustomerOrders(string id)
+        {
             MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
             var collection = dbConnection.dbClient.GetCollection<Order>("orders");
 
-            var task = collection.Find(order => order.Customer.Email == email).ToListAsync();
+            var task = collection.Find(order => order.Customer._id == id).ToListAsync();
             
             task.Wait();
             var results = task.Result;
             
             return results;
-
         }
 
         public Order NewOrder(Order order)
@@ -99,8 +119,7 @@ namespace Store
 
         public HttpStatusCode PackageEnter(Order order)
         {
-            Debug.WriteLine(order.Book.Title);
-            Email.SendEmail(order.Customer.Email, "Book","State:" + order.State.CurrentState +"\n"+"Book: "+order.Book.Title);
+            Email.SendEmail(order.Customer.Email, "Book", "State:" + order.State.CurrentState + "\n" + "Book: "+ order.Book.Title);
             
             return HttpStatusCode.OK;
         }

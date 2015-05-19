@@ -1,13 +1,10 @@
 $(document).ready(function () {
-    var codCliente = getParameterByName('codCliente');
-	
-    $("#cartaoClienteH4").hide();
-    $("#criarCartaoCliente").hide();
-    $("#pontosH4").hide();
+    
+	var id = getParameterByName("id");
 	
     $.ajax({
         type: "GET",
-        url: "http://localhost:46615/StoreService.svc/api/customer/" + codCliente,
+        url: "http://localhost:46615/StoreService.svc/api/customer/" + id,
         dataType: "json",
 		cache: false,
         success: function (resp) {
@@ -16,7 +13,7 @@ $(document).ready(function () {
 			$("#email").append(resp.Email);
         },
         error: function (e) {
-            alert("Error collecting user data!");
+            alert("Error collecting costumer data!");
         }
     });
 });

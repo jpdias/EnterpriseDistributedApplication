@@ -40,13 +40,13 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li style="text-align:center"><a href="profile.php?codCliente=<?php echo $_SESSION['codCliente'];?>">My Profile</a>
-					<li style="text-align:center"><a href="orders.php?codCliente=<?php echo $_SESSION['codCliente'];?>">My Orders</a>
-                    <li style="text-align:center"><a href="catalog.php?codCliente=<?php echo $_SESSION['codCliente'];?>">Catalog</a>
+                    <li style="text-align:center"><a href="profile.php?id=<?php echo $_SESSION['id'];?>">My Profile</a>
+					<li style="text-align:center"><a href="orders.php?id=<?php echo $_SESSION['id'];?>">My Orders</a>
+                    <li style="text-align:center"><a href="catalog.php?id=<?php echo $_SESSION['id'];?>">Catalog</a>
                     </li>
                 </ul>
 				<ul class="nav navbar-nav navbar-right">
-					Hello, <a href="profile.php?codCliente=<?php echo $_SESSION['codCliente'];?>"><?php echo $_SESSION['nomeCliente'];?></a>!
+					Hello, <a href="profile.php?id=<?php echo $_SESSION['id'];?>"><?php echo $_SESSION['name'];?></a>!
 					<a href="logout.php"><button type="button" id="logout" class="btn btn-default btn-xs navbar-btn">Log Out</button></a>
 				</ul>
 				
