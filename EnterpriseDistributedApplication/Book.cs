@@ -7,35 +7,39 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using System.Runtime.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 
 
 namespace EnterpriseDistributedApplication
 {
-    [DataContract]
+    [DataContract(Name = "Book")]
     public class Book
     {
-        [DataMember]
-        public ObjectId _id;
-        [DataMember]
+        [DataMember(Name = "_id")]
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string _id;
+        [DataMember(Name="Title")]
         public string Title { get; set; }
-        [DataMember]
+        [DataMember(Name = "Price")]
         public double Price { get; set; }
-        [DataMember]
+        [DataMember(Name = "Editor")]
         public string Editor { get; set; }
-        [DataMember]
+        [DataMember(Name = "Stock")]
         public int Stock { get; set; }
 
         public Book(string title, double price, string editor, int stock)
         {
-            _id = new ObjectId(DateTime.Now, Process.GetCurrentProcess().SessionId, (short)Process.GetCurrentProcess().Id, 1);
+            _id = new ObjectId(DateTime.Now, Process.GetCurrentProcess().SessionId, (short)Process.GetCurrentProcess().Id, 1).ToJson();
             Title = title;
             Price = price;
             Editor = editor;
             Stock = stock;
         }
 
-        public Book(string title, double price, string editor)
+        public Book(string id,string title, double price, string editor)
         {
+            _id = id;
             Title = title;
             Price = price;
             Editor = editor;
