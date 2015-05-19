@@ -80,7 +80,7 @@ namespace Store
             MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
             var collection = dbConnection.dbClient.GetCollection<Order>("orders");
 
-            var task = collection.Find(order => order.Quantity != 0).ToListAsync();
+            var task = collection.Find(order => order.Customer.Email == email).ToListAsync();
             
             task.Wait();
             var results = task.Result;
@@ -89,15 +89,11 @@ namespace Store
 
         }
 
-        public Order NewOrder()
+        public Order NewOrder(Order order)
         {
             OrdersOps operation = new OrdersOps();
-             
-            Book booktest = new Book("Harry Potter",20.0,"PortoEditora");
-            Customer customertest = new Customer("joao@mail.com");
-            Order test = new Order(booktest, 9,customertest,new State(State.state.Waiting, null));
-            Order result = operation.ProcessNewOrder(test);
-
+            Order result = operation.ProcessNewOrder(order);
+            
             return result;
         }
 
@@ -105,6 +101,7 @@ namespace Store
         {
             Debug.WriteLine(order.Book.Title);
             Email.SendEmail(order.Customer.Email, "Book","State:" + order.State.CurrentState +"\n"+"Book: "+order.Book.Title);
+            
             return HttpStatusCode.OK;
         }
     }

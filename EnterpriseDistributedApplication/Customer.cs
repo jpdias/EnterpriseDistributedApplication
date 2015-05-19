@@ -32,10 +32,5 @@ namespace EnterpriseDistributedApplication
             Address = address;
             Password = password;
         }
-
-        public Customer(string email)
-        {
-            Email = email;
-        }
     }
 }
