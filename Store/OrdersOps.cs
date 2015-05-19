@@ -62,8 +62,36 @@ namespace Store
                 {
                     return order;
                 }
-                
+
             }
+            return order;
+        }
+
+        public Order ProcessNewPackage(Order order)
+        {
+            var collectionBook = dbConnection.dbClient.GetCollection<Book>("books");
+            var collectionOrders = dbConnection.dbClient.GetCollection<Order>("orders");
+
+            var task = collectionOrders.Find(ord => ord.Book._id == order.Book._id).ToListAsync();
+            task.Wait();
+
+            foreach (var ord in task.Result)
+            {
+                if (ord.State.CurrentState == State.state.Waiting && order.Book.Stock > 0)
+                {
+                    var filterOrders = Builders<Order>.Filter.Eq(o => o._id, ord._id);
+                    var updateOrders = Builders<Order>.Update.Set(o => o.State.CurrentState, State.state.WaitingDispatch);
+                    collectionOrders.UpdateOneAsync(filterOrders, updateOrders);
+                    order.Book.Stock -= ord.Quantity;
+                    Email.SendEmail(order.Customer.Email, "Book", "State:" + order.State.CurrentState + "\n" + "Book: " + order.Book.Title);
+                }
+            }
+
+            var filter = Builders<Book>.Filter.Eq(b => b._id, order.Book._id);
+            var update = Builders<Book>.Update.Inc(b => b.Stock, order.Book.Stock);
+            var updateTask = collectionBook.UpdateOneAsync(filter, update);
+            updateTask.Wait();
+
             return order;
         }
 

@@ -119,8 +119,8 @@ namespace Store
 
         public HttpStatusCode PackageEnter(Order order)
         {
-            Email.SendEmail(order.Customer.Email, "Book", "State:" + order.State.CurrentState + "\n" + "Book: "+ order.Book.Title);
-            
+            OrdersOps operation = new OrdersOps();
+            operation.ProcessNewPackage(order);
             return HttpStatusCode.OK;
         }
     }
