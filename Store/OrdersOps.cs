@@ -9,26 +9,12 @@ using Store.WarehouseService;
 
 namespace Store
 {
-    public class EventThrower
-    {
-        public delegate void EventHandler(object sender, EventArgs args);
-        public event EventHandler ThrowEvent = delegate { };
-
-        public void SomethingHappened()
-        {
-            if (this.ThrowEvent != null)
-                {
-                    this.ThrowEvent(this, new EventArgs());
-                }
-        }
-    }
+    
     public class OrdersOps
     {
         private MongoConnectionHandler dbConnection;
         private WarehouseServiceClient warehouseService;
-
-        
-       
+        public static event EventHandler ThrowEvent = delegate { };
 
         public OrdersOps()
         {
@@ -41,10 +27,13 @@ namespace Store
             dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
         }
 
-        protected void UpdateGUI()
+        public static void UpdateGUI()
         {
-            EventThrower ev = new EventThrower();
-            ev.SomethingHappened();
+            if (ThrowEvent != null)
+            {
+                ThrowEvent(null, EventArgs.Empty);
+                ThrowEvent.Invoke(null, null);
+            }
         }
 
         public Order ProcessNewOrder(Order order)

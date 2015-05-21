@@ -13,12 +13,13 @@
             <Button x:Name="loginBtn" Content="Login" HorizontalAlignment="Left" Margin="217,226,0,0" VerticalAlignment="Top" Width="75" Click="loginBtn_Click"/>
         </Grid>
         <Grid x:Name="ControlPanel" >
-            <ListBox Name="PendingListBox" Margin="268,0,10,41" Height="268"  ItemsSource="{Binding Path=PendingListOrders}">
+            <ListBox Name="PendingListBox" Margin="268,0,10,41" Height="268" IsSelected="False" ItemsSource="{Binding Path=PendingListOrders}" SelectionMode="Multiple">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="enterpriseDistributedApplication:Order">
                         <StackPanel>
-                            <CheckBox Name="CheckBoxZone" Content="{Binding Book.Title, StringFormat={}{0}}" />
-                            <TextBlock Text="{Binding Customer.Name, StringFormat={}      Client: {0}}"/>
+                            <TextBlock Text="{Binding Book.Title, StringFormat={}Book:{0}}" />
+                            <TextBlock Text="{Binding Customer.Name, StringFormat={}Client:{0}}"/>
+                            <Line X1="0" X2="200" Y1="0" Y2="0" VerticalAlignment="Bottom"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

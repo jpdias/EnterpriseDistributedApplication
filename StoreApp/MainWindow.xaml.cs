@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -29,25 +30,32 @@ namespace StoreApp
     {
         public ObservableCollection<Order> PendingListOrders;
         OrdersOps ops;
-        private EventThrower _Thrower;
 
-      
         public MainWindow()
         {
             InitializeComponent();
+
+
+
             ops = new OrdersOps("app");
             PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders());
             PendingListBox.ItemsSource = PendingListOrders;
-            this._Thrower = new EventThrower();
-            this._Thrower.ThrowEvent += (sender, args) => { DoSomething(); };
+            OrdersOps.ThrowEvent += (s, e) =>
+            {
+                if (Application.Current != null)
+                {
+                    Application.Current.Dispatcher.BeginInvoke((Action)(DoSomething));
+                }
+            };
+
         }
 
-
-        private void DoSomething()
+        private static void DoSomething()
         {
-           Debug.WriteLine("HEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-           PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders());
-           PendingListBox.ItemsSource = PendingListOrders;
+
+            Debug.WriteLine("HEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+            // PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders());
+            // PendingListBox.ItemsSource = PendingListOrders;
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
@@ -65,9 +73,13 @@ namespace StoreApp
                 MessageBox.Show("Auth fail");
         }
 
-        private void CheckPending_Click(object sender, RoutedEventArgs e)
-        {
-
+        private void CheckPending_Click(object sender, RoutedEventArgs e){
+        
+            for (int i = 0; i < PendingListBox.SelectedItems.Count; i++)
+            {
+                Order li = PendingListBox.SelectedItems[i] as Order;
+                Debug.WriteLine(li.Book.Title);
+            }
         }
 
     }
