@@ -29,23 +29,25 @@ namespace StoreApp
     {
         public ObservableCollection<Order> PendingListOrders;
         OrdersOps ops;
+        private EventThrower _Thrower;
 
+      
         public MainWindow()
         {
             InitializeComponent();
-            OrdersOps.update += HandleEvent;
-            ops = new OrdersOps("stuff");
+            ops = new OrdersOps("app");
             PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders());
             PendingListBox.ItemsSource = PendingListOrders;
-
-            OrdersOps.update.Invoke();
+            this._Thrower = new EventThrower();
+            this._Thrower.ThrowEvent += (sender, args) => { DoSomething(); };
         }
 
-        public void HandleEvent()
+
+        private void DoSomething()
         {
-            Debug.WriteLine("stuff");
-            /*PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders());
-            PendingListBox.ItemsSource = PendingListOrders;*/
+           Debug.WriteLine("HEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+           PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders());
+           PendingListBox.ItemsSource = PendingListOrders;
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)

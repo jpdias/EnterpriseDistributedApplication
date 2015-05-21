@@ -9,15 +9,25 @@ using Store.WarehouseService;
 
 namespace Store
 {
+    public class EventThrower
+    {
+        public delegate void EventHandler(object sender, EventArgs args);
+        public event EventHandler ThrowEvent = delegate { };
+
+        public void SomethingHappened()
+        {
+            if (this.ThrowEvent != null)
+                {
+                    this.ThrowEvent(this, new EventArgs());
+                }
+        }
+    }
     public class OrdersOps
     {
         private MongoConnectionHandler dbConnection;
         private WarehouseServiceClient warehouseService;
 
-        public delegate void EventHandler();
-
-        public static EventHandler update;
-
+        
        
 
         public OrdersOps()
@@ -33,12 +43,8 @@ namespace Store
 
         protected void UpdateGUI()
         {
-            EventHandler handler = OrdersOps.update;
-            if (handler != null)
-            {
-                handler();
-            }
-                   
+            EventThrower ev = new EventThrower();
+            ev.SomethingHappened();
         }
 
         public Order ProcessNewOrder(Order order)
