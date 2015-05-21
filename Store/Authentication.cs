@@ -40,7 +40,7 @@ namespace Store
 
             task.Wait();
             var results = task.Result;
-            if (results.Password == customer.Password)
+            if (results!=null && results.Password == customer.Password)
             {
                 return true;
             }

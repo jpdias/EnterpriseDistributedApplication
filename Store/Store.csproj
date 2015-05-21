@@ -84,9 +84,6 @@
     <None Include="Service References\WarehouseService\item.disco" />
     <None Include="Service References\WarehouseService\configuration91.svcinfo" />
     <None Include="Service References\WarehouseService\configuration.svcinfo" />
-    <None Include="Service References\WarehouseService\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\WarehouseService\item21.xsd">
       <SubType>Designer</SubType>
     </None>

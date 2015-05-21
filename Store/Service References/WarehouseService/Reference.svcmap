@@ -22,12 +22,11 @@
     <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/Warehouse/WarehouseService/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="795d84f7-e600-41f8-ba34-ea1a615ebcba" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Warehouse/WarehouseService/?xsd=xsd1" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="dfe24baf-ccb3-458a-bfbf-d568b850de3c" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Warehouse/WarehouseService/?xsd=xsd3" />
-    <MetadataFile FileName="WarehouseService.wsdl" MetadataType="Wsdl" ID="d73d5090-f9ab-4e96-a2e9-392e0c163a3f" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Warehouse/WarehouseService/?wsdl" />
     <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="75f1ddd1-b2f3-4c84-9976-5e6ab337edbd" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Warehouse/WarehouseService/?xsd=xsd0" />
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="04134a5b-1660-4016-906e-7e17ce168d4c" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Warehouse/WarehouseService/?disco" />
     <MetadataFile FileName="item21.xsd" MetadataType="Schema" ID="d4748533-b1fe-45be-b3b4-979591e82ac8" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Warehouse/WarehouseService/?xsd=xsd2" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="795d84f7-e600-41f8-ba34-ea1a615ebcba" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Warehouse/WarehouseService/?xsd=xsd1" />
+    <MetadataFile FileName="WarehouseService.wsdl" MetadataType="Wsdl" ID="d73d5090-f9ab-4e96-a2e9-392e0c163a3f" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Warehouse/WarehouseService/?wsdl" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="04134a5b-1660-4016-906e-7e17ce168d4c" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Warehouse/WarehouseService/?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

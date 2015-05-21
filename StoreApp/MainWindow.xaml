@@ -1,13 +1,30 @@
 ﻿<Window x:Class="StoreApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid x:Name="Login">
-        <PasswordBox x:Name="password" HorizontalAlignment="Left" Margin="172,153,0,0" VerticalAlignment="Top" Height="23" Width="256"/>
-        <TextBox x:Name="username" HorizontalAlignment="Left" Height="23" Margin="172,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" FontSize="14"/>
-        <TextBlock HorizontalAlignment="Left" Margin="99,153,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" FontSize="14" Height="22" Width="68"/>
-        <TextBlock HorizontalAlignment="Left" Margin="99,116,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" FontSize="14" Height="22" Width="71"/>
-        <Button x:Name="loginBtn" Content="Login" HorizontalAlignment="Left" Margin="217,226,0,0" VerticalAlignment="Top" Width="75" Click="loginBtn_Click"/>
+        xmlns:enterpriseDistributedApplication="clr-namespace:EnterpriseDistributedApplication;assembly=EnterpriseDistributedApplication"
+        xmlns:local="clr-namespace:StoreApp"
+        Title="MainWindow" Height="359" Width="566" ResizeMode="NoResize">
+    <Grid x:Name="GlobalWindow">
+        <Grid x:Name="Login" Visibility="Hidden">
+            <PasswordBox x:Name="password" HorizontalAlignment="Left" Margin="172,153,0,0" VerticalAlignment="Top" Height="23" Width="256"/>
+            <TextBox x:Name="username" HorizontalAlignment="Left" Height="23" Margin="172,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" FontSize="14"/>
+            <TextBlock HorizontalAlignment="Left" Margin="99,153,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" FontSize="14" Height="22" Width="68"/>
+            <TextBlock HorizontalAlignment="Left" Margin="99,116,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" FontSize="14" Height="22" Width="71"/>
+            <Button x:Name="loginBtn" Content="Login" HorizontalAlignment="Left" Margin="217,226,0,0" VerticalAlignment="Top" Width="75" Click="loginBtn_Click"/>
+        </Grid>
+        <Grid x:Name="ControlPanel" >
+            <ListBox Name="PendingListBox" Margin="268,0,10,41" Height="268"  ItemsSource="{Binding Path=PendingListOrders}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="enterpriseDistributedApplication:Order">
+                        <StackPanel>
+                            <CheckBox Name="CheckBoxZone" Content="{Binding Book.Title, StringFormat={}{0}}" />
+                            <TextBlock Text="{Binding Customer.Name, StringFormat={}      Client: {0}}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
+            <Button x:Name="CheckPending" Content="Check Pending Orders" Margin="268,283,10,10" Click="CheckPending_Click"/>
+        </Grid>
     </Grid>
 </Window>

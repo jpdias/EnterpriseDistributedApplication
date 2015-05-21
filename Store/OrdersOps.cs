@@ -13,16 +13,39 @@ namespace Store
     {
         private MongoConnectionHandler dbConnection;
         private WarehouseServiceClient warehouseService;
+
+        public delegate void EventHandler();
+
+        public static EventHandler update;
+
+       
+
         public OrdersOps()
         {
             dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
             warehouseService = new WarehouseServiceClient();
         }
 
+        public OrdersOps(string stuff)
+        {
+            dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
+        }
+
+        protected void UpdateGUI()
+        {
+            EventHandler handler = OrdersOps.update;
+            if (handler != null)
+            {
+                handler();
+            }
+                   
+        }
+
         public Order ProcessNewOrder(Order order)
         {
             var collectionBook = dbConnection.dbClient.GetCollection<Book>("books");
             var collectionOrders = dbConnection.dbClient.GetCollection<Order>("orders");
+            
 
             var task = collectionBook.Find(b => b.Title == order.Book.Title && b.Editor == order.Book.Editor).FirstOrDefaultAsync();
 
@@ -32,8 +55,8 @@ namespace Store
             if (results != null && results.Stock > 0)
             {
                 var filter = Builders<Book>.Filter.Eq(b => b.Title, order.Book.Title);
-                var update = Builders<Book>.Update.Inc(b => b.Stock, -order.Quantity);
-                var updateTask = collectionBook.UpdateOneAsync(filter, update);
+                var update1 = Builders<Book>.Update.Inc(b => b.Stock, -order.Quantity);
+                var updateTask = collectionBook.UpdateOneAsync(filter, update1);
                 updateTask.Wait();
 
                 order.State = new State(State.state.Dispatched, DateTime.Now);
@@ -44,6 +67,7 @@ namespace Store
                 var insertResult = insertOrder;
                 if (insertResult.IsCompleted)
                 {
+                    UpdateGUI();
                     return order;
                 }
             }
@@ -60,15 +84,28 @@ namespace Store
 
                 if (insertResult.IsCompleted)
                 {
+                    UpdateGUI();
                     return order;
                 }
 
             }
+
+            UpdateGUI();
             return order;
+        }
+
+        public List<Order> GetPendingOrders()
+        {
+            var collectionOrders = dbConnection.dbClient.GetCollection<Order>("orders");
+            var task = collectionOrders.Find(ord => ord.State.CurrentState == State.state.WaitingDispatch).ToListAsync();
+            task.Wait();
+
+            return task.Result;
         }
 
         public Order ProcessNewPackage(Order order)
         {
+            
             var collectionBook = dbConnection.dbClient.GetCollection<Book>("books");
             var collectionOrders = dbConnection.dbClient.GetCollection<Order>("orders");
 
@@ -88,12 +125,12 @@ namespace Store
             }
 
             var filter = Builders<Book>.Filter.Eq(b => b._id, order.Book._id);
-            var update = Builders<Book>.Update.Inc(b => b.Stock, order.Book.Stock);
-            var updateTask = collectionBook.UpdateOneAsync(filter, update);
+            var update2 = Builders<Book>.Update.Inc(b => b.Stock, order.Book.Stock);
+            var updateTask = collectionBook.UpdateOneAsync(filter, update2);
             updateTask.Wait();
 
+            UpdateGUI();
             return order;
         }
-
     }
 }
