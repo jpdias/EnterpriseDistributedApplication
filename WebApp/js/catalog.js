@@ -17,7 +17,7 @@ $(document).ready(function () {
 			
 			for (var key in resp) {
 			  if (resp.hasOwnProperty(key)) {
-				table.row.add([resp[key].Title, resp[key].Editor, resp[key].Price, resp[key].Stock, "Order".link("order.php?customerId=" + id + "&bookId=" + resp[key]._id)]).draw();
+				table.row.add([resp[key].Title, resp[key].Editor, resp[key].Price, resp[key].Stock, "Order".link("order.php?customerId=" + id + "&bookId=" + resp[key]._id + "&quantity=" + $('#quantity').val())]).draw();
 			  }
 			}
         },

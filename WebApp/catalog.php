@@ -29,12 +29,14 @@
 
     <h2 class="center-middle margin-bottom"> Catalog </h2>
 
+	<div align="right">Order quantity: <input type="number" id="quantity" name="quantity" min="1" max="10" value="1"></div>
+	
     <div class="table-responsive center-middle">
         <table class="table text-center" id="catalog_table">
             <thead>
                 <tr>
                     <th>Title</th>
-                    <th class="sort">Editor</th>
+                    <th>Editor</th>
 					<th>Price</th>
 					<th>Stock</th>
 					<th>Order</th>
@@ -46,7 +48,6 @@
         </table>
     </div>
 </div>
-
 
 </body>
 
