@@ -9,15 +9,11 @@ namespace Store
     {
         public List<Book> GetBooks()
         {
-            MongoConnectionHandler dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
-            var collection = dbConnection.dbClient.GetCollection<Book>("books");
+            OrdersOps operation = new OrdersOps();
+            List<Book> result = operation.GetAllBooks();
 
-            var task = collection.Find(book => book.Title != "").ToListAsync();
-
-            task.Wait();
-            var results = task.Result;
+            return result;
            
-            return results;
         }
         
         public Book GetBook(string id)

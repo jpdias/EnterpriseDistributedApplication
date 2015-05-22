@@ -103,6 +103,15 @@ namespace Store
             return task.Result;
         }
 
+        public List<Customer> GetAllCustomers()
+        {
+            var collectionCostumers = dbConnection.dbClient.GetCollection<Customer>("customers");
+            var task = collectionCostumers.Find(c => c.Name != null).ToListAsync();
+            task.Wait();
+
+            return task.Result;
+        }
+
         public void CheckPendingOrders(List<Order> checkedOrders)
         {
             var collectionOrders = dbConnection.dbClient.GetCollection<Order>("orders");
@@ -144,6 +153,19 @@ namespace Store
 
            
             return order;
+        }
+
+        public List<Book> GetAllBooks()
+        {
+           
+            var collection = dbConnection.dbClient.GetCollection<Book>("books");
+
+            var task = collection.Find(book => book.Title != "").ToListAsync();
+
+            task.Wait();
+            var results = task.Result;
+
+            return results;
         }
     }
 }
