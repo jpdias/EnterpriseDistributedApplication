@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using EnterpriseDistributedApplication;
-using MongoDB;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using Store.WarehouseService;
 
 namespace Store
 {

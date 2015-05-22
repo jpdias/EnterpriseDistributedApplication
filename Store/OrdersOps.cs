@@ -14,7 +14,6 @@ namespace Store
     {
         private MongoConnectionHandler dbConnection;
         private WarehouseServiceClient warehouseService;
-        public static event EventHandler ThrowEvent = delegate { };
 
         public OrdersOps()
         {
@@ -25,15 +24,12 @@ namespace Store
         public OrdersOps(string stuff)
         {
             dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
+            
         }
 
-        public static void UpdateGUI()
+        void OrdersOps_ThrowEvent(object sender, EventArgs e)
         {
-            if (ThrowEvent != null)
-            {
-                ThrowEvent(null, EventArgs.Empty);
-                ThrowEvent.Invoke(null, null);
-            }
+            Debug.WriteLine("hey");
         }
 
         public Order ProcessNewOrder(Order order)
@@ -62,7 +58,7 @@ namespace Store
                 var insertResult = insertOrder;
                 if (insertResult.IsCompleted)
                 {
-                    UpdateGUI();
+                   
                     return order;
                 }
             }
@@ -79,13 +75,13 @@ namespace Store
 
                 if (insertResult.IsCompleted)
                 {
-                    UpdateGUI();
+                   
                     return order;
                 }
 
             }
 
-            UpdateGUI();
+            
             return order;
         }
 
@@ -96,6 +92,19 @@ namespace Store
             task.Wait();
 
             return task.Result;
+        }
+
+        public void CheckPendingOrders(List<Order> checkedOrders)
+        {
+            var collectionOrders = dbConnection.dbClient.GetCollection<Order>("orders");
+            foreach (var order in checkedOrders)
+            {
+               var state = new State(State.state.Dispatched, DateTime.Now.AddDays(2));
+               var filterOrders = Builders<Order>.Filter.Eq(o => o._id, order._id);
+               var updateOrders = Builders<Order>.Update.Set(o => o.State, state);
+               collectionOrders.UpdateOneAsync(filterOrders, updateOrders);
+               Email.SendEmail(order.Customer.Email, "Book", "State:" + state.CurrentState + "\n" + "Date:" + state.dateTime.ToShortDateString() + "\n"+ "Book: " + order.Book.Title);
+            }
         }
 
         public Order ProcessNewPackage(Order order)
@@ -124,7 +133,7 @@ namespace Store
             var updateTask = collectionBook.UpdateOneAsync(filter, update2);
             updateTask.Wait();
 
-            UpdateGUI();
+           
             return order;
         }
     }

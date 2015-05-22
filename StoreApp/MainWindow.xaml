@@ -24,7 +24,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-
+            <Button x:Name="CreateOrderButton" Content="Create Order" Margin="10,284,307,10" Click="CreateOrderButton_Click"/>
             <Button x:Name="CheckPending" Content="Check Pending Orders" Margin="268,283,10,10" Click="CheckPending_Click"/>
         </Grid>
     </Grid>

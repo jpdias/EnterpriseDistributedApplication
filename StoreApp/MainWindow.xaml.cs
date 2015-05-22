@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using EnterpriseDistributedApplication;
 using Store;
 
@@ -30,37 +31,48 @@ namespace StoreApp
     {
         public ObservableCollection<Order> PendingListOrders;
         OrdersOps ops;
+        private readonly DispatcherTimer dispatcherTimer;
 
         public MainWindow()
         {
             InitializeComponent();
 
-
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(UpdateGUI);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
+            dispatcherTimer.Start();
 
             ops = new OrdersOps("app");
-            PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders());
-            PendingListBox.ItemsSource = PendingListOrders;
-            OrdersOps.ThrowEvent += (s, e) =>
-            {
-                if (Application.Current != null)
-                {
-                    Application.Current.Dispatcher.BeginInvoke((Action)(DoSomething));
-                }
-            };
+            UpdateGUIOnClick();
 
         }
 
-        private static void DoSomething()
+        private void UpdateGUI(object sender, EventArgs eventArgs)
         {
+            Dispatcher.BeginInvoke(new Action(delegate()
+            {
+                PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders());
+                PendingListBox.ItemsSource = PendingListOrders;
+                PendingListBox.UpdateLayout();
+            }));
 
-            Debug.WriteLine("HEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-            // PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders());
-            // PendingListBox.ItemsSource = PendingListOrders;
+        }
+
+        private void UpdateGUIOnClick()
+        {
+            dispatcherTimer.Stop();
+            Dispatcher.BeginInvoke(new Action(delegate()
+            {
+                PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders());
+                PendingListBox.ItemsSource = PendingListOrders;
+                PendingListBox.UpdateLayout();
+            }));
+            dispatcherTimer.Start();
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
-            Store.Authentication auth = new Store.Authentication();
+            Authentication auth = new Authentication();
 
             var user = username.Text;
             var pass = password.Password;
@@ -73,14 +85,37 @@ namespace StoreApp
                 MessageBox.Show("Auth fail");
         }
 
-        private void CheckPending_Click(object sender, RoutedEventArgs e){
-        
-            for (int i = 0; i < PendingListBox.SelectedItems.Count; i++)
+        private void CheckPending_Click(object sender, RoutedEventArgs e)
+        {
+            List<Order> pendingOrders = new List<Order>();
+            foreach (object listItem in PendingListBox.SelectedItems)
             {
-                Order li = PendingListBox.SelectedItems[i] as Order;
-                Debug.WriteLine(li.Book.Title);
+                Order li = listItem as Order;
+                pendingOrders.Add(li);
+            }
+            ops.CheckPendingOrders(pendingOrders);
+            UpdateGUIOnClick();
+        }
+
+
+        private void CreateOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Book book = new Book();
+            //Customer customer = new Customer();
+            //Order order = new Order(book,1,customer);
+
+            UpdateGUIOnClick();
+
+            MessageBoxResult result = MessageBox.Show("Do you want to print the recipt?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                //PrintOrder(idOrder);
             }
         }
 
+        private void PrintOrder(Order idOrder)
+        {
+
+        }
     }
 }
