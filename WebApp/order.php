@@ -1,9 +1,10 @@
 <?php
 
-if (isset($_GET['customerId']) || isset($_GET['bookId']))
+if (isset($_GET['customerId']) || isset($_GET['bookId']) || isset($_GET['quantity']))
 {
 	$customerId = $_GET['customerId'];
 	$bookId = $_GET['bookId'];
+	$quantity = $_GET['quantity'];
 	
 	$customer = json_decode(CallAPI("GET", "http://localhost:46615/StoreService.svc/api/customer/" . $customerId), true);
 	
@@ -27,7 +28,7 @@ if (isset($_GET['customerId']) || isset($_GET['bookId']))
 	
 	$data = array(
 		"Book" => $bookData,
-		"Quantity" => 1,
+		"Quantity" => $quantity,
 		"Customer" => $customerData
 	);
 	
