@@ -12,8 +12,8 @@
             <TextBlock HorizontalAlignment="Left" Margin="99,116,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" FontSize="14" Height="22" Width="71"/>
             <Button x:Name="loginBtn" Content="Login" HorizontalAlignment="Left" Margin="217,226,0,0" VerticalAlignment="Top" Width="75" Click="loginBtn_Click"/>
         </Grid>
-        <Grid x:Name="ControlPanel" >
-            <ListBox Name="PendingListBox" Margin="268,0,10,41" Height="268" IsSelected="False" ItemsSource="{Binding Path=PendingListOrders}" SelectionMode="Multiple">
+        <Grid x:Name="ControlPanel" Margin="262,0,0,0" >
+            <ListBox Name="PendingListBox" Margin="10,10,10,52" Height="268" IsSelected="False" ItemsSource="{Binding Path=PendingListOrders}" SelectionMode="Multiple">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="enterpriseDistributedApplication:Order">
                         <StackPanel>
@@ -24,8 +24,10 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Button x:Name="CreateOrderButton" Content="Create Order" Margin="10,284,307,10" Click="CreateOrderButton_Click"/>
-            <Button x:Name="CheckPending" Content="Check Pending Orders" Margin="268,283,10,10" Click="CheckPending_Click"/>
+           <Button x:Name="CheckPending" Content="Check Pending Orders" Margin="10,283,10,10" Click="CheckPending_Click"/>
+       </Grid>
+        <Grid x:Name="Sell" Margin="0,0,303,0">
+            <Button x:Name="CreateOrderButton" Content="Create Order" Margin="10,284,10,10" Click="CreateOrderButton_Click"/>
         </Grid>
     </Grid>
 </Window>

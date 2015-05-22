@@ -15,6 +15,13 @@ namespace Store
         private MongoConnectionHandler dbConnection;
         private WarehouseServiceClient warehouseService;
 
+        enum originType
+        {
+            StoreApp, OnlineApp 
+        }
+
+        originType Origin = originType.OnlineApp;
+
         public OrdersOps()
         {
             dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
@@ -24,13 +31,9 @@ namespace Store
         public OrdersOps(string stuff)
         {
             dbConnection = new MongoConnectionHandler("store", "admin", "eda_store");
-            
+            Origin = originType.StoreApp;
         }
 
-        void OrdersOps_ThrowEvent(object sender, EventArgs e)
-        {
-            Debug.WriteLine("hey");
-        }
 
         public Order ProcessNewOrder(Order order)
         {
@@ -50,8 +53,14 @@ namespace Store
                 var updateTask = collectionBook.UpdateOneAsync(filter, update1);
                 updateTask.Wait();
 
-                order.State = new State(State.state.Dispatched, DateTime.Now);
-                order.State.dateTime = DateTime.Now;
+                if (Origin == originType.OnlineApp)
+                {
+                    order.State = new State(State.state.WaitingDispatch, DateTime.Now.AddDays(2));
+                }
+                else
+                {
+                    order.State = new State(State.state.Dispatched, DateTime.Now);          
+                }
 
                 var insertOrder = collectionOrders.InsertOneAsync(order);
                 insertOrder.Wait();
