@@ -20,13 +20,13 @@ $(document).ready(function () {
 				var currentState;  
 				  
 				if(resp[key].State.CurrentState == 0)
-					currentState = "Dispatch will occur";
+					currentState = "Waiting expedition";
 				else
 					if(resp[key].State.CurrentState == 1)
 						currentState = "Dispatched";
 					else
 						if(resp[key].State.CurrentState == 2)
-							currentState = "Waiting expedition";
+							currentState = "Dispatch will occur";
 			  
 				table.row.add(
 				[resp[key].Book.Title,
