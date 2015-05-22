@@ -17,7 +17,22 @@ $(document).ready(function () {
 			
 			for (var key in resp) {
 			  if (resp.hasOwnProperty(key)) {
-				table.row.add([resp[key].Book.Title, resp[key].Quantity, resp[key].State.CurrentState]).draw();
+				var currentState;  
+				  
+				if(resp[key].State.CurrentState == 0)
+					currentState = "Dispatch will occur";
+				else
+					if(resp[key].State.CurrentState == 1)
+						currentState = "Dispatched";
+					else
+						if(resp[key].State.CurrentState == 2)
+							currentState = "Waiting expedition";
+			  
+				table.row.add(
+				[resp[key].Book.Title,
+				resp[key].Quantity,
+				currentState
+				]).draw();
 			  }
 			}
         },
