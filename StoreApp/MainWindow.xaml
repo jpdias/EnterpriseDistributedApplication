@@ -1,4 +1,4 @@
-﻿<Window x:Class="StoreApp.MainWindow"
+﻿<Window x:Name="Store" x:Class="StoreApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:enterpriseDistributedApplication="clr-namespace:EnterpriseDistributedApplication;assembly=EnterpriseDistributedApplication"
@@ -6,7 +6,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-        Title="MainWindow" Height="359" Width="566" ResizeMode="NoResize">
+        Title="Store" Height="359" Width="566" ResizeMode="NoResize" Icon="Assets/book.ico">
     <Grid x:Name="GlobalWindow">
         <Grid x:Name="Login" Visibility="Visible">
             <PasswordBox x:Name="password" HorizontalAlignment="Left" Margin="172,153,0,0" VerticalAlignment="Top" Height="23" Width="256"/>

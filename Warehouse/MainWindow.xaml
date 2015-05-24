@@ -4,7 +4,7 @@
         xmlns:warehouse="clr-namespace:Warehouse"
         xmlns:enterpriseDistributedApplication="clr-namespace:EnterpriseDistributedApplication;assembly=EnterpriseDistributedApplication"
         xmlns:local="clr-namespace:Warehouse"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Warehouse" Height="350" Width="525" ResizeMode="NoResize" Icon="Assets/book.ico">
     <Grid>
         <ListBox Name="listBoxZone" ItemsSource="{Binding Source={x:Static local:MainWindow.TheList}}"  Margin="10">
             <ListBox.ItemTemplate>
