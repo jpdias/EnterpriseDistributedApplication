@@ -4,7 +4,7 @@
   <xs:element name="ReportToWarehouse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/EnterpriseDistributedApplication" minOccurs="0" name="order" nillable="true" type="q1:Order" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/EnterpriseDistributedApplication" minOccurs="0" name="order" nillable="true" type="q1:OrderBooks" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -97,10 +97,10 @@ namespace StoreApp
             if (auth.AuthenticateUser(new User(user, pass)))
             {
                 Login.Visibility = Visibility.Hidden;
-                ControlPanel.Visibility = Visibility.Visible;
+                MainGrid.Visibility = Visibility.Visible;
             }
             else
-                MessageBox.Show("Auth fail");
+                MessageBox.Show("Authentication fail");
         }
 
         private void CheckPending_Click(object sender, RoutedEventArgs e)
@@ -192,12 +192,14 @@ namespace StoreApp
         {
             costumers.Visibility = Visibility.Hidden;
             NewGrid.Visibility = Visibility.Visible;
+            UpdateGUIOnClick();
         }
 
         private void New_OnUnchecked(object sender, RoutedEventArgs e)
         {
             NewGrid.Visibility = Visibility.Hidden;
             costumers.Visibility = Visibility.Visible;
+            UpdateGUIOnClick();
         }
     }
 }

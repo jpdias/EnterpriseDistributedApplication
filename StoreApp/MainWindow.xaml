@@ -8,72 +8,74 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         Title="MainWindow" Height="359" Width="566" ResizeMode="NoResize">
     <Grid x:Name="GlobalWindow">
-        <Grid x:Name="Login" Visibility="Hidden">
+        <Grid x:Name="Login" Visibility="Visible">
             <PasswordBox x:Name="password" HorizontalAlignment="Left" Margin="172,153,0,0" VerticalAlignment="Top" Height="23" Width="256"/>
             <TextBox x:Name="username" HorizontalAlignment="Left" Height="23" Margin="172,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" FontSize="14"/>
             <TextBlock HorizontalAlignment="Left" Margin="99,153,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" FontSize="14" Height="22" Width="68"/>
             <TextBlock HorizontalAlignment="Left" Margin="99,116,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" FontSize="14" Height="22" Width="71"/>
             <Button x:Name="loginBtn" Content="Login" HorizontalAlignment="Left" Margin="217,226,0,0" VerticalAlignment="Top" Width="75" Click="loginBtn_Click"/>
         </Grid>
-        <Grid x:Name="ControlPanel" Margin="262,0,0,0" >
-            <ListBox Name="PendingListBox" Margin="10,10,10,62" IsSelected="False" ItemsSource="{Binding Path=PendingListOrders}" SelectionMode="Multiple">
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="enterpriseDistributedApplication:Order">
-                        <StackPanel>
-                            <TextBlock Text="{Binding Book.Title, StringFormat={}Book:{0}}" />
-                            <TextBlock Text="{Binding Customer.Name, StringFormat={}Client:{0}}"/>
-                            <Line X1="0" X2="200" Y1="0" Y2="0" VerticalAlignment="Bottom"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button x:Name="CheckPending" Content="Check Pending Orders" Margin="10,283,10,10" Click="CheckPending_Click"/>
-        </Grid>
-        <Grid x:Name="Sell" Margin="0,0,303,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="129*"/>
-                <ColumnDefinition Width="128*"/>
-            </Grid.ColumnDefinitions>
+        <Grid x:Name="MainGrid" Visibility="Hidden">
+            <Grid x:Name="ControlPanel" Margin="262,0,0,0" >
+                <ListBox Name="PendingListBox" Margin="10,10,10,62" IsSelected="False" ItemsSource="{Binding Path=PendingListOrders}" SelectionMode="Multiple">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="enterpriseDistributedApplication:Order">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Book.Title, StringFormat={}Book:{0}}" />
+                                <TextBlock Text="{Binding Customer.Name, StringFormat={}Client:{0}}"/>
+                                <Line X1="0" X2="200" Y1="0" Y2="0" VerticalAlignment="Bottom"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button x:Name="CheckPending" Content="Check Pending Orders" Margin="10,283,10,10" Click="CheckPending_Click"/>
+            </Grid>
+            <Grid x:Name="Sell" Margin="0,0,303,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="129*"/>
+                    <ColumnDefinition Width="128*"/>
+                </Grid.ColumnDefinitions>
 
-            <toolkit:AutoCompleteBox x:Name="costumers"
+                <toolkit:AutoCompleteBox x:Name="costumers"
                 IsTextCompletionEnabled="True" 
                 FilterMode="Contains" Margin="9,168,10,0"  ValueMemberPath="Name" SelectedItem="{Binding Name, Mode=TwoWay}" Grid.ColumnSpan="2" Height="24" VerticalAlignment="Top" >
-                <toolkit:AutoCompleteBox.ItemTemplate>
-                    <DataTemplate DataType="enterpriseDistributedApplication:Customer">
-                        <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </toolkit:AutoCompleteBox.ItemTemplate>
-            </toolkit:AutoCompleteBox>
-            <toolkit:AutoCompleteBox x:Name="books"
+                    <toolkit:AutoCompleteBox.ItemTemplate>
+                        <DataTemplate DataType="enterpriseDistributedApplication:Customer">
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </toolkit:AutoCompleteBox.ItemTemplate>
+                </toolkit:AutoCompleteBox>
+                <toolkit:AutoCompleteBox x:Name="books"
                 IsTextCompletionEnabled="True" 
                 FilterMode="Contains" Margin="10,63,10,0"  ValueMemberPath="Title" Height="24" VerticalAlignment="Top" Grid.ColumnSpan="2" >
-                <toolkit:AutoCompleteBox.ItemTemplate>
-                    <DataTemplate DataType="enterpriseDistributedApplication:Book">
-                        <TextBlock Text="{Binding Title}" />
-                    </DataTemplate>
-                </toolkit:AutoCompleteBox.ItemTemplate>
-            </toolkit:AutoCompleteBox>
-            <Button x:Name="CreateOrderButton" Content="Create Order" Margin="10,284,10,10" Click="CreateOrderButton_Click" Grid.ColumnSpan="2"
+                    <toolkit:AutoCompleteBox.ItemTemplate>
+                        <DataTemplate DataType="enterpriseDistributedApplication:Book">
+                            <TextBlock Text="{Binding Title}" />
+                        </DataTemplate>
+                    </toolkit:AutoCompleteBox.ItemTemplate>
+                </toolkit:AutoCompleteBox>
+                <Button x:Name="CreateOrderButton" Content="Create Order" Margin="10,284,10,10" Click="CreateOrderButton_Click" Grid.ColumnSpan="2"
                     Grid.Column="0" />
-            <TextBlock HorizontalAlignment="Left" Margin="9,142,0,0" TextWrapping="Wrap" Text="Client" VerticalAlignment="Top" Width="48"
+                <TextBlock HorizontalAlignment="Left" Margin="9,142,0,0" TextWrapping="Wrap" Text="Client" VerticalAlignment="Top" Width="48"
                        Grid.Column="0" />
-            <TextBlock HorizontalAlignment="Left" Margin="10,44,0,0" TextWrapping="Wrap" Text="Book Name" VerticalAlignment="Top" Width="237" Grid.ColumnSpan="2" />
-            <TextBlock HorizontalAlignment="Left" Margin="10,92,0,0" TextWrapping="Wrap" Text="Quantity" VerticalAlignment="Top" Width="237" Grid.ColumnSpan="2" />
-            <TextBlock x:Name="state" HorizontalAlignment="Left" Margin="10,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="237" Grid.ColumnSpan="2"
+                <TextBlock HorizontalAlignment="Left" Margin="10,44,0,0" TextWrapping="Wrap" Text="Book Name" VerticalAlignment="Top" Width="237" Grid.ColumnSpan="2" />
+                <TextBlock HorizontalAlignment="Left" Margin="10,92,0,0" TextWrapping="Wrap" Text="Quantity" VerticalAlignment="Top" Width="237" Grid.ColumnSpan="2" />
+                <TextBlock x:Name="state" HorizontalAlignment="Left" Margin="10,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="237" Grid.ColumnSpan="2"
                        Grid.Column="0" TextAlignment="Center"/>
-            <TextBox x:Name="quant" Height="23" Margin="10,113,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" Grid.ColumnSpan="2" />
-            <CheckBox x:Name="New" Content="New" Grid.Column="1" HorizontalAlignment="Left" Margin="71,146,0,0" VerticalAlignment="Top" Checked="New_Checked" Unchecked="New_OnUnchecked" Width="44"/>
-            <Grid  x:Name="NewGrid" HorizontalAlignment="Left" Height="66" Margin="9,163,0,0" VerticalAlignment="Top" Width="238" Grid.ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="75*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="name" HorizontalAlignment="Left" Height="16" Margin="65,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.Column="1"/>
-                <TextBlock HorizontalAlignment="Left" Margin="10,21,0,0" TextWrapping="Wrap" Text="Addess" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="addr" HorizontalAlignment="Left" Height="16" Margin="65,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.Column="1"/>
-                <TextBlock HorizontalAlignment="Left" Margin="10,42,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="email" HorizontalAlignment="Left" Height="16" Margin="65,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.Column="1"/>
+                <TextBox x:Name="quant" Height="23" Margin="10,113,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                <CheckBox x:Name="New" Content="New" Grid.Column="1" HorizontalAlignment="Left" Margin="71,146,0,0" VerticalAlignment="Top" Checked="New_Checked" Unchecked="New_OnUnchecked" Width="44"/>
+                <Grid  x:Name="NewGrid" HorizontalAlignment="Left" Height="66" Margin="9,163,0,0" VerticalAlignment="Top" Width="238" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="75*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="name" HorizontalAlignment="Left" Height="16" Margin="65,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.Column="1"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,21,0,0" TextWrapping="Wrap" Text="Addess" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="addr" HorizontalAlignment="Left" Height="16" Margin="65,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.Column="1"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,42,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="email" HorizontalAlignment="Left" Height="16" Margin="65,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.Column="1"/>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
