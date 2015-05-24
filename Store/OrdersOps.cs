@@ -76,7 +76,10 @@ namespace Store
                 order.State = new State(State.state.Waiting, DateTime.Now);
                 order.State.dateTime = DateTime.Now;
 
-                warehouseService.ReportToWarehouse(order);
+                OrderBooks orderTemp = new OrderBooks(order.Book,order.Quantity);
+
+
+                warehouseService.ReportToWarehouse(orderTemp);
 
                 var insertOrder = collectionOrders.InsertOneAsync(order);
                 insertOrder.Wait();
@@ -94,10 +97,10 @@ namespace Store
             return order;
         }
 
-        public List<Order> GetPendingOrders()
+        public List<Order> GetPendingOrders(DateTime date)
         {
             var collectionOrders = dbConnection.dbClient.GetCollection<Order>("orders");
-            var task = collectionOrders.Find(ord => ord.State.CurrentState == State.state.WaitingDispatch).ToListAsync();
+            var task = collectionOrders.Find(ord => ord.State.CurrentState == State.state.WaitingDispatch && ord.State.dateTime>=date).ToListAsync();
             task.Wait();
 
             return task.Result;
@@ -139,10 +142,10 @@ namespace Store
                 if (ord.State.CurrentState == State.state.Waiting && order.Book.Stock > 0)
                 {
                     var filterOrders = Builders<Order>.Filter.Eq(o => o._id, ord._id);
-                    var updateOrders = Builders<Order>.Update.Set(o => o.State.CurrentState, State.state.WaitingDispatch);
+                    var updateOrders = Builders<Order>.Update.Set(o => o.State, new State(State.state.WaitingDispatch,DateTime.Now.AddDays(2)));
                     collectionOrders.UpdateOneAsync(filterOrders, updateOrders);
                     order.Book.Stock -= ord.Quantity;
-                    Email.SendEmail(order.Customer.Email, "Book", "State:" + order.State.CurrentState + "\n" + "Book: " + order.Book.Title);
+                    Email.SendEmail(ord.Customer.Email, "Book", "State:" + ord.State.CurrentState + "\n" + "Book: " + ord.Book.Title + "\n" + "Total: " + ord.Book.Price*ord.Quantity);
                 }
             }
 

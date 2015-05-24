@@ -59,7 +59,7 @@ namespace StoreApp
         {
             Dispatcher.BeginInvoke(new Action(delegate()
             {
-                PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders());
+                PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders(DateTime.Now));
                 PendingListBox.ItemsSource = PendingListOrders;
                 PendingListBox.UpdateLayout();
             }));
@@ -71,7 +71,7 @@ namespace StoreApp
             dispatcherTimer.Stop();
             Dispatcher.BeginInvoke(new Action(delegate()
             {
-                PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders());
+                PendingListOrders = new ObservableCollection<Order>(ops.GetPendingOrders(DateTime.Now));
                 PendingListBox.ItemsSource = PendingListOrders;
                 PendingListBox.UpdateLayout();
 

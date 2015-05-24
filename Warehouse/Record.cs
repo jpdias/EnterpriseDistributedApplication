@@ -16,9 +16,9 @@ namespace Warehouse
             dbConnection = new MongoConnectionHandler("warehouse", "admin", "eda_warehouse");
         }
 
-        public Order ProcessPackage(Order order)
+        public OrderBooks ProcessPackage(OrderBooks order)
         {
-            var collectionOrders = dbConnection.dbClient.GetCollection<Order>("orders");
+            var collectionOrders = dbConnection.dbClient.GetCollection<OrderBooks>("orders");
 
             var task = collectionOrders.InsertOneAsync(order);
 

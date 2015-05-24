@@ -22,14 +22,14 @@ namespace Warehouse
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static ObservableCollection<Order> TheList = new ObservableCollection<Order>();
+        public static ObservableCollection<OrderBooks> TheList = new ObservableCollection<OrderBooks>();
         public static int Factor = 10;
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        public static void AddToList(Order order)
+        public static void AddToList(OrderBooks order)
         {
             Application.Current.Dispatcher.BeginInvoke(
                 System.Windows.Threading.DispatcherPriority.Normal,
@@ -43,7 +43,7 @@ namespace Warehouse
 
         private void CheckBoxZone_Checked(object sender, RoutedEventArgs e)
         {
-            Order temp = null;
+            OrderBooks temp = null;
 
             CheckBox current = (CheckBox)e.OriginalSource;
 
@@ -66,7 +66,7 @@ namespace Warehouse
                
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Order));
+                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(OrderBooks));
                     MemoryStream ms = new MemoryStream();
                     ser.WriteObject(ms, temp);
                     string jsonString = Encoding.UTF8.GetString(ms.ToArray());

@@ -129,16 +129,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EnterpriseDistributedApplication\EnterpriseDistributedApplication.csproj">
-      <Project>{e64bbbb5-5d95-454b-a87d-da71294ae4a9}</Project>
-      <Name>EnterpriseDistributedApplication</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\WarehouseService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EnterpriseDistributedApplication\EnterpriseDistributedApplication.csproj">
+      <Project>{e64bbbb5-5d95-454b-a87d-da71294ae4a9}</Project>
+      <Name>EnterpriseDistributedApplication</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -14,6 +14,6 @@ namespace Warehouse
     {
         [OperationContract(IsOneWay = true)]
         [TransactionFlow(TransactionFlowOption.Allowed)]
-        void ReportToWarehouse(Order order);
+        void ReportToWarehouse(OrderBooks order);
     }
 }

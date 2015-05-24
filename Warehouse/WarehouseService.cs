@@ -14,7 +14,7 @@ namespace Warehouse
     public class WarehouseService : IWarehouseService
     {
         [OperationBehavior(TransactionScopeRequired = true)]
-        public void ReportToWarehouse(Order order)
+        public void ReportToWarehouse(OrderBooks order)
         {
             MainWindow.AddToList(order);
             Record rec = new Record();
