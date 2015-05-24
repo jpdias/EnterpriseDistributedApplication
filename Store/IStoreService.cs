@@ -92,6 +92,6 @@ namespace Store
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "api/warehouse/package")]
-        HttpStatusCode PackageEnter(Order order);
+        HttpStatusCode PackageEnter(OrderBooks order);
     }
 }

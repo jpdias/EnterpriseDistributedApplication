@@ -102,7 +102,7 @@ namespace Store
             return result;
         }
 
-        public HttpStatusCode PackageEnter(Order order)
+        public HttpStatusCode PackageEnter(OrderBooks order)
         {
             OrdersOps operation = new OrdersOps();
             operation.ProcessNewPackage(order);

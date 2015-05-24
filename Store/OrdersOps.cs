@@ -128,7 +128,7 @@ namespace Store
             }
         }
 
-        public Order ProcessNewPackage(Order order)
+        public Order ProcessNewPackage(OrderBooks order)
         {
             
             var collectionBook = dbConnection.dbClient.GetCollection<Book>("books");
