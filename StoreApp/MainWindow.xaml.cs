@@ -170,7 +170,8 @@ namespace StoreApp
             // Create a font
             XFont font = new XFont("Times New Roman", 10, XFontStyle.Bold);
 
-            var text = "New Receipt\n\nBook: " + idOrder.Book.Title + "\nEditor: " + idOrder.Book.Editor + "\n" + "Quantity: " +
+            var text = "Receipt\n\n" +
+                       "Date:"+DateTime.Now.ToShortDateString()+"\nBook: " + idOrder.Book.Title + "\nEditor: " + idOrder.Book.Editor + "\n" + "Quantity: " +
                        idOrder.Quantity + "\n" + "Total: " + total + "\n\nThank you, from EDA Developers!";
             // Draw the text
             XTextFormatter tf = new XTextFormatter(gfx);
