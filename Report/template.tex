@@ -1,0 +1,175 @@
+\documentclass[12pt]{article}
+
+\usepackage{color}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{stringenc}
+\usepackage{pdfescape}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{eurosym}
+\begin{document}
+
+\setlength{\textwidth}{16cm}
+\setlength{\textheight}{22cm}
+\title{\huge\textbf{\textit{Enterprise Distributed Application}}\linebreak
+\Large\textbf{\\Trabalho \#2}\linebreak\linebreak\linebreak
+\includegraphics[width=8cm]{feup.pdf}\linebreak \linebreak
+\large{Mestrado Integrado em Engenharia Informática e Computação} \linebreak
+\large{Tecnologias de Distribuição e Integração \\ EIC0077-2S}\linebreak
+}
+\author{
+João Carlos Teixeira de Sá - 201107925 (ei11142@fe.up.pt)\\
+João Pedro Matos Teixeira Dias - 201106781 (ei11137@fe.up.pt)\\
+\\
+\\ Faculdade de Engenharia da Universidade do Porto \\ Rua Roberto Frias, s\/n, 4200-465 Porto, Portugal
+ \vspace{1cm}}
+%\date{Junho de 2007}
+\maketitle
+\thispagestyle{empty}
+
+%************************************************************************************************
+%************************************************************************************************
+
+\newpage
+
+\tableofcontents
+
+%************************************************************************************************
+%************************************************************************************************
+
+%*************************************************************************************************
+%************************************************************************************************
+
+\newpage
+
+\section{Introdução}
+
+O presente documento apresenta o desenvolvimento do projeto \textit{Enterprise Distributed Application} para a unidade curricular de Tecnologias de Distribuição e Integração. 
+
+O projeto tem como objetivo o desenvolvimento de um sistema, \textit{Enterprise Distributed Application}, capaz de gerir compras e vendas de livros de uma editora. 
+
+O sistema é composto por um servidor presente numa loja que persiste a informação relativa aos livros existentes para venda tais como o título, preço e o stock disponível tanto na loja como em armazém. Este servidor encontra-se ligado à \textit{internet} e está sempre disponível.
+
+As compras de um livro por parte de um consumidor podem ser feitas diretamente na loja ou através de uma aplicação \textit{web}. Caso exista stock do livro pretendido o mesmo é imediatamente entregue ao consumidor no caso da compra ser feita na loja ou enviado pelo correio caso seja efetuado o pedido através da aplicação \textit{web} e, no caso de não existir stock, a loja deve enviar uma mensagem para o armazém a pedir o envio do livro em questão numa quantidade 10 vezes superior ao pretendido pelo cliente.
+
+
+\section{Tecnologias}
+
+O projeto foi desenvolvido usando a \textit{framework Windows Communication Foundation} para o desenvolvimento da API disponibilizada da loja bem como a tecnologia \textit{Microsoft Message Queuing} para o envio e receção das mensagens de pedido de stock de livros ao armazém utilizando em ambos os casos a linguagem de programação C\#. Além disso foram também utilizadas as linguagens de programação PHP, HTML  e Javascript para o desenvolvimento da aplicação \textit{web}. 
+
+Adicionalmente foi utilizado para persistência de dados a tecnologia de base de dados \textit{MongoDB} e para o desenvolvimento da interfaces de utilizador da loja e do armazém a tecnologia \textit{Windows Presentation Foundation} usando a linguagem \textit{XAML}.
+
+Por último, para gestão de dependências do projeto foi usado o \textit{NuGet} e para gestão de versões foi utilizada a ferramenta \textit{Git} usando a plataforma \textit{GitHub}.
+
+
+\section{Arquitetura}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{arch.png}
+    \caption{Arquitetura do Sistema.}
+    \label{fig:arch}
+\end{figure}
+
+O sistema apresenta a estrutura típica de um projeto baseado em \textit{.NET Remoting}, como apresentado na fig. \ref{fig:arch},contando assim com uma aplicação cliente e uma aplicação servidor. Acrescenta-se ainda uma persistência de dados garantida usando uma base de dados SQLite associada a aplicação servidor.
+
+Apresenta-se também com uma divisão modular apresentando:
+\begin{itemize}
+\item Módulo comum
+\begin{itemize}
+\item Definição das estruturas de dados partilhadas entre cliente e servidor.
+\end{itemize}
+\item Módulo cliente
+\begin{itemize}
+\item Aplicação cliente com interface gráfica (\textit{GUI}).
+\end{itemize}
+\item Módulo servidor
+\begin{itemize}
+\item Aplicação servidor com lógica do sistema, transações e persistência de dados.
+\end{itemize}
+\end{itemize}
+
+O sistema ainda utiliza objetos para representação das transações (\textit{order}), dos valores digitais (\textit{digicoin}) e para a informação dos utilizadores (\textit{user}).
+
+
+\section{Front-end}
+
+\subsection{Interface gráfica}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{1.png}
+    \caption{\textit{Login.}}
+    \label{fig:c1}
+\end{figure}
+
+Ao nível da interface gráfica desenvolvida é disponibilizado numa primeira fase um ecrã de \textit{login}, fig. \ref{fig:c1}, onde o utilizador pode entrar no sistema, ou, se registar no mesmo ao clicar em \textit{regiter}.
+
+Após o utilizador fazer \textit{login} no sistema são disponibilizadas as opções de criar ações de venda e de compra, assim como editar as ordens existentes, fig. \ref{fig:c2} e \ref{fig:c3}.
+
+Por último, é mostrado alertas, fig. \ref{fig:c4}, quando existe mudança no valor do mercado, dando assim tempo ao utilizador para alterar as suas ações.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{2.png}
+    \caption{Ecrã inicial.}
+    \label{fig:c2}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{3.png}
+    \caption{Edição.}
+    \label{fig:c3}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{4.png}
+    \caption{Alerta de mudança de valor de mercado.}
+    \label{fig:c4}
+\end{figure}
+
+\subsection{Casos de Uso}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{use.png}
+    \caption{Diagrama de casos de uso.}
+    \label{fig:use}
+\end{figure}
+
+
+\section{Conclusão}
+
+O sistema encontra-se desenvolvido com todas as funcionalidades solicitadas no enunciado do projeto, possibilitando ao utilizador uma utilização total do sistema.
+
+\subsection*{Testes}
+
+Para testar o correto funcionamento do sistema foram efetuadas várias experiências com diferentes clientes ligados a aplicação servidor, assim como, foram testados vários casos de falha ou do cliente e/ou servidor e garantida a persistência dos dados.
+
+\subsection*{\textit{Deploy}}
+
+O sistema pode ser utilizado abrindo a aplicação de servidor (\textit{Server.exe}) e uma ou várias aplicações de cliente (\textit{DESClient.exe}) usando o executáveis entregues. Pode ser também aberto o projeto de \textit{Visual Studio} (\textit{DiginoteExchangeSystem.sln}) e fazer \textit{Start} ao mesmo na interface do \textit{IDE}.
+
+\section{Recursos}
+
+\subsection{Bibliografia}
+\begin{description}
+\item .NET Remoting Overview, \url{https://msdn.microsoft.com/library/kwdt6w2k\%28v=VS.71\%29.aspx}.
+\item Distribution and Integration Technologies, Miguel Monteiro, Faculdade de Engenharia da Universidade do Porto, \url{paginas.fe.up.pt/~apm/TDIN/}.
+\end{description}
+\subsection{\it{Software}}
+\begin{description}
+\item Visual Studio 2013 Ultimate, Microsoft, \url{http://www.visualstudio.com/}.
+\item SQLite, \url{http://www.sqlite.org/}.
+\item SQLiteClient, Community, \url{http://www.nuget.org/packages/Community.CsharpSqlite.SQLiteClient/}.
+\item NuGet, \url{http://www.nuget.org/}.
+\item GitHub, \url{http://github.com/}.
+\end{description}
+
+
+\end{document}
